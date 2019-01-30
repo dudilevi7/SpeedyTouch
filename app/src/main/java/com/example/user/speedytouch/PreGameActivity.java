@@ -19,7 +19,7 @@ public class PreGameActivity extends Activity {
     ImageView imageView;
     TextView numberView;
     Button startBtn ;
-    SingletonNumbers1 numbersLevel1 = SingletonNumbers1.getInstance();
+    SingletonNumbers1 NumbersGameManager = SingletonNumbers1.getInstance();
     //array of fc -> level 1 (1-20)
     ArrayList<Integer> fcLevel1 = new ArrayList<Integer>(
             Arrays.<Integer>asList(R.drawable.barak,R.drawable.ic_launcher_background,R.drawable.speedytouchlogo));
@@ -31,7 +31,7 @@ public class PreGameActivity extends Activity {
         startBtn = findViewById(R.id.startBtn);
         numberView = findViewById(R.id.findNumberImage);
 
-        SingletonNumbers1.getInstance().initNumberArrayList();
+        // SingletonNumbers1.getInstance().initNumberArrayList();
 
         whatIsTheType = getIntent().getStringExtra("type");
         whatIsTheLevel = getIntent().getIntExtra("level",0);
@@ -41,15 +41,16 @@ public class PreGameActivity extends Activity {
                 Random rand = new Random();
                 if(whatIsTheType.contains("numbers")){ //If the game is numbers
                     if (whatIsTheLevel == 1) {//level 1 of numbers game
-                        if(numbersLevel1.getList().size()==0){ //Level has been finished !
+                        if(NumbersGameManager.getList().size()==0){ //Level has been finished !
                             Toast.makeText(getApplicationContext(),"The level is done!",Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            theImageIndex = rand.nextInt(numbersLevel1.getList().size()); //randomize the image index
-                            theChoosenImage = numbersLevel1.getList().get(theImageIndex); //getting the image address
+                            //theImageIndex = rand.nextInt(NumbersGameManager.getList().size()); //randomize the image index
+                            theImageIndex = NumbersGameManager.getNewNumberToPlay();
+                            theChoosenImage = NumbersGameManager.getList().get(theImageIndex); //getting the image address
                             numberView.setText(""+theChoosenImage); //setting the image
                             startNewActivity(theChoosenImage,whatIsTheType,whatIsTheLevel);
-                            //   numbersLevel1.remove(theImageIndex); //(we have to fix it)
+                            //   NumbersGameManager.remove(theImageIndex); //(we have to fix it)
                         }
 
                     }
@@ -62,14 +63,14 @@ public class PreGameActivity extends Activity {
                 }
                 if(whatIsTheType.contains("fc")) {
                     if (whatIsTheLevel == 1) {//level 1 of numbers game
-                        if (numbersLevel1.getList().size() == 0) { //Level has been finished !
+                        if (NumbersGameManager.getList().size() == 0) { //Level has been finished !
                             // Toast.makeText(getApplicationContext(),"The level is done!",Toast.LENGTH_SHORT).show();
                         } else {
-                            theImageIndex = rand.nextInt(numbersLevel1.getList().size()); //randomize the image index
-                            theChoosenImage = numbersLevel1.getList().get(theImageIndex); //getting the image address
+                            theImageIndex = rand.nextInt(NumbersGameManager.getList().size()); //randomize the image index
+                            theChoosenImage = NumbersGameManager.getList().get(theImageIndex); //getting the image address
                             imageView.setImageResource(theChoosenImage); //setting the image
                             startNewActivity(theChoosenImage, whatIsTheType, whatIsTheLevel);
-                            //   numbersLevel1.remove(theImageIndex); //(we have to fix it)
+                            //   NumbersGameManager.remove(theImageIndex); //(we have to fix it)
                         }
                     }
                 }

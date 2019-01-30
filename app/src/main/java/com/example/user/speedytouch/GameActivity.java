@@ -2,7 +2,9 @@ package com.example.user.speedytouch;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +22,7 @@ public class GameActivity extends Activity {
     ImageButton trueButton;
     TextView numberTv;
     Button endBtn;
+    int HEDEAR_HEIGHT = 50;
     int number,height,width ,theImageAddress,whatIsTheLevel,countPoints;
     String whatIsTheType;
     ArrayList<Button> numbersLevel1 = new ArrayList<Button>(20);
@@ -48,8 +51,14 @@ public class GameActivity extends Activity {
             numbersLevel1.add(button);
         }
         RelativeLayout gameLayout = findViewById(R.id.relativeBtns);
-        width  = gameLayout.getWidth();
-        height = gameLayout.getHeight();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+        // width  = gameLayout.getWidth();
+        // height = gameLayout.getHeight();
 
 
 
@@ -138,29 +147,29 @@ public class GameActivity extends Activity {
     }
     private void buttonsPlace(Button button) {
         Random buttonPlace = new Random();
-        int x = buttonPlace.nextInt(Math.abs(343 - width));
-        int y = buttonPlace.nextInt(Math.abs(480 - height));
+        int x = buttonPlace.nextInt(Math.abs( width));
+        int y = buttonPlace.nextInt(Math.abs( height));
         //  int buttonY = buttonPlace.nextInt(480);
         //int buttonX = buttonPlace.nextInt(800);
-        button.setX(x);
-        button.setY(y);
+        button.setX(x/2);
+        button.setY(y/2);
     }
     private void imageButtonsPlace(ImageButton imageButton) {
         Random buttonPlace = new Random();
-        int x = buttonPlace.nextInt(Math.abs(343 - width));
-        int y = buttonPlace.nextInt(Math.abs(480 - height));
+        int x = buttonPlace.nextInt(width);
+        int y = buttonPlace.nextInt(height - HEDEAR_HEIGHT);
       //  int buttonY = buttonPlace.nextInt(480);
         //int buttonX = buttonPlace.nextInt(800);
-        imageButton.setX(x);
-        imageButton.setY(y);
+        imageButton.setX(x/2);
+        imageButton.setY(y/2);
     }
     private void numbersPlace() {
         Random numbersPlace = new Random();
-        int x = numbersPlace.nextInt(Math.abs(343 - width));
-        int y = numbersPlace.nextInt(Math.abs(480 - height));
+        int x = numbersPlace.nextInt(width);
+        int y = numbersPlace.nextInt(height - HEDEAR_HEIGHT);
        // int buttonY = numbersPlace.nextInt(480);
         //int buttonX = numbersPlace.nextInt(800);
-        numberTv.setX(x);
-        numberTv.setY(y);
+        numberTv.setX(x/2);
+        numberTv.setY(y/2);
     }
 }
