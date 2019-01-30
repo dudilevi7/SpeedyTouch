@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpeedyTouch</string>
+    <string name="choose_your_level">Choose your level</string>
+    <string name="numbers">Numbers</string>
+    <string name="F_logos">Football logos</string>
+    <string name="countries_flags">Countries and flags</string>
+    <string name="random">Random</string>
+    <string name="choose_your_game">Choose your game type</string>
+    <string name="Level_1">Level 1</string>
+    <string name="Level_3">Level 3</string>
+    <string name="Level_2">Level 2</string>
+    <string name="start">Start</string>
+    <string name="next">Next</string>
+    <string name="searchfor">Search for...</string>
+</resources>

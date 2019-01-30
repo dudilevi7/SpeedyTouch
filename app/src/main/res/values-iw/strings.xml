@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpeedyTouch</string>
+    <string name="choose_your_level">בחר את הרמה של המשחק</string>
+    <string name="numbers">מספרים</string>
+    <string name="F_logos">סמלים של קבוצות כדורגל</string>
+    <string name="countries_flags">דגלים ומדינות</string>
+    <string name="random">רנדומאלי</string>
+    <string name="choose_your_game">בחר את סוג המשחק</string>
+    <string name="Level_1">קל</string>
+    <string name="Level_2">בינוני</string>
+    <string name="Level_3">קשה</string>
+    <string name="start">התחל</string>
+    <string name="next">הבא</string>
+    <string name="searchfor">חפש אחרי...</string>
+</resources>
