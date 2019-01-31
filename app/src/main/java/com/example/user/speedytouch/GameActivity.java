@@ -23,12 +23,10 @@ public class GameActivity extends Activity {
     TextView numberTv;
     Button endBtn;
     int HEDEAR_HEIGHT = 50;
-    int number,height,width ,theImageAddress,whatIsTheLevel,countPoints;
+    int height,width ,theImageAddress,whatIsTheLevel;
     String whatIsTheType;
     ArrayList<Button> numbersLevel1 = new ArrayList<Button>(20);
-    //array of fc -> level 1 (1-20)
-    ArrayList<Integer> fcLevel1 = new ArrayList<Integer>(
-            Arrays.<Integer>asList(R.drawable.barak,R.drawable.ic_launcher_background,R.drawable.speedytouchlogo));
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +34,8 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
         //trueButton set the getting image from previous intent
         endBtn = findViewById(R.id.endBtn);
-        trueButton = findViewById(R.id.theChosenImage);
-        numberTv = findViewById(R.id.theChosenNumber);
+        trueButton = findViewById(R.id.theChosenIb);
+        numberTv = findViewById(R.id.theChosenNumberTv);
 
         theImageAddress = getIntent().getIntExtra("image",0); //or the chosen number value
         whatIsTheLevel = getIntent().getIntExtra("level",0);
@@ -57,18 +55,20 @@ public class GameActivity extends Activity {
         display.getSize(size);
         width = size.x;
         height = size.y;
-        // width  = gameLayout.getWidth();
-        // height = gameLayout.getHeight();
+
 
 
 
         if (whatIsTheType.contains("numbers")) {
             if(whatIsTheLevel==1) {
                 trueButton.setVisibility(View.INVISIBLE);
-                numbersPlace();
+
                 for (Button numBtn :numbersLevel1){
-                    buttonsPlace(numBtn);
-                    gameLayout.addView(numBtn,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    if (numBtn.getText() != numberTv.getText())
+                    {
+                        numbersPlace(numBtn);
+                        gameLayout.addView(numBtn,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    }
                 }
                 numberTv.setText(""+theImageAddress);
                 numberTv.setOnClickListener(new View.OnClickListener() {
@@ -149,27 +149,22 @@ public class GameActivity extends Activity {
         Random buttonPlace = new Random();
         int x = buttonPlace.nextInt(Math.abs( width));
         int y = buttonPlace.nextInt(Math.abs( height));
-        //  int buttonY = buttonPlace.nextInt(480);
-        //int buttonX = buttonPlace.nextInt(800);
-        button.setX(x/2);
-        button.setY(y/2);
+        button.setX(x);
+        button.setY(y);
     }
     private void imageButtonsPlace(ImageButton imageButton) {
         Random buttonPlace = new Random();
         int x = buttonPlace.nextInt(width);
         int y = buttonPlace.nextInt(height - HEDEAR_HEIGHT);
-      //  int buttonY = buttonPlace.nextInt(480);
-        //int buttonX = buttonPlace.nextInt(800);
-        imageButton.setX(x/2);
-        imageButton.setY(y/2);
+        imageButton.setX(x);
+        imageButton.setY(y);
     }
-    private void numbersPlace() {
-        Random numbersPlace = new Random();
-        int x = numbersPlace.nextInt(width);
-        int y = numbersPlace.nextInt(height - HEDEAR_HEIGHT);
-       // int buttonY = numbersPlace.nextInt(480);
-        //int buttonX = numbersPlace.nextInt(800);
-        numberTv.setX(x/2);
-        numberTv.setY(y/2);
+    private void numbersPlace(Button numberBtn)
+    {
+            Random numbersPlace = new Random();
+            int x = numbersPlace.nextInt(width - HEDEAR_HEIGHT);
+            int y = numbersPlace.nextInt(height - HEDEAR_HEIGHT);
+            numberBtn.setX(x);
+            numberBtn.setY(y);
     }
 }

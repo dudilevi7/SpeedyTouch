@@ -10,14 +10,14 @@
         android:textSize="30sp"
         android:layout_gravity="center"
         android:fontFamily="sans-serif-condensed"
-        android:id="@+id/searchFor"
+        android:id="@+id/searchForTvPreGame"
         android:textStyle="bold"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/findNumberImage"
+            android:id="@+id/findNumberImageTv"
             android:layout_marginTop="30dp"
             android:layout_width="150dp"
             android:layout_centerHorizontal="true"
@@ -26,7 +26,7 @@
             android:layout_gravity="center" />
 
         <ImageView
-            android:id="@+id/findImage"
+            android:id="@+id/findImageIb"
             android:layout_marginTop="30dp"
             android:layout_width="150dp"
             android:layout_centerHorizontal="true"

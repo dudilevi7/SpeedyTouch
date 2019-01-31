@@ -27,9 +27,9 @@ public class PreGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
-        imageView = findViewById(R.id.findImage);
+        imageView = findViewById(R.id.findImageIb);
         startBtn = findViewById(R.id.startBtn);
-        numberView = findViewById(R.id.findNumberImage);
+        numberView = findViewById(R.id.findNumberImageTv);
 
         // SingletonNumbers1.getInstance().initNumberArrayList();
 
