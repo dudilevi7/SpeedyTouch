@@ -14,18 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 public class GameActivity extends Activity {
     ImageButton trueButton;
-    TextView numberTv;
+    TextView winningNumberTv;
     Button endBtn;
-    int HEDEAR_HEIGHT = 50;
     int height,width ,theImageAddress,whatIsTheLevel;
     String whatIsTheType;
-    ArrayList<Button> numbersLevel1 = new ArrayList<Button>(20);
+    ArrayList<TextView> numbersLevel1 = new ArrayList<TextView>(20);
 
 
     @Override
@@ -35,19 +36,24 @@ public class GameActivity extends Activity {
         //trueButton set the getting image from previous intent
         endBtn = findViewById(R.id.endBtn);
         trueButton = findViewById(R.id.theChosenIb);
-        numberTv = findViewById(R.id.theChosenNumberTv);
+        winningNumberTv = new TextView(this); //Winning number text view
 
         theImageAddress = getIntent().getIntExtra("image",0); //or the chosen number value
         whatIsTheLevel = getIntent().getIntExtra("level",0);
         whatIsTheType = getIntent().getStringExtra("type");
-        for(int i=0; i < 20; i++) // where x is the size of the list containing your alphabet.
+
+        for(int i=0; i < 30; i++) // for of the other numbers (looser numbers)
         {
-            Button button = new Button(this);
-            button.setId(i);
-            button.setText(""+i);
-            button.setBackground(getResources().getDrawable(R.color.White));
-            numbersLevel1.add(button);
+            if (i!=theImageAddress) { //i! = winning number
+                TextView numbersTv = new TextView(this);
+                numbersTv.setId(i);
+                numbersTv.setText("" + i);
+                numbersTv.setTextSize(27);
+                numbersTv.setBackgroundColor(Color.TRANSPARENT);
+                numbersLevel1.add(numbersTv);
+            }
         }
+        //define screensize
         RelativeLayout gameLayout = findViewById(R.id.relativeBtns);
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -57,24 +63,34 @@ public class GameActivity extends Activity {
         height = size.y;
 
 
-
-
         if (whatIsTheType.contains("numbers")) {
             if(whatIsTheLevel==1) {
-                trueButton.setVisibility(View.INVISIBLE);
-
-                for (Button numBtn :numbersLevel1){
-                    if (numBtn.getText() != numberTv.getText())
-                    {
-                        numbersPlace(numBtn);
-                        gameLayout.addView(numBtn,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    }
+                trueButton.setVisibility(View.INVISIBLE); //hide the trueButton(type of fc/countries/random)
+                winningNumberTvPlace(winningNumberTv); //Positioning of the winning number
+                int xWinningTv = (int)winningNumberTv.getX()+winningNumberTv.getWidth()/2; // X of winning number
+                int yWinningTv = (int)winningNumberTv.getY()+winningNumberTv.getHeight()/2; // Y " "  " " "" " "
+                gameLayout.addView(winningNumberTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                //^^ adding the winning number to screen
+                for (final TextView numbersTv :numbersLevel1){
+                        numbersPlace(numbersTv,xWinningTv,yWinningTv); //Positioning of other numbers
+                        gameLayout.addView(numbersTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                        numbersTv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                numbersTv.setTextSize(50);
+                                numbersTv.setTextColor(Color.RED);
+                                endBtn.setText("Looooserr!!!");
+                            }
+                        });
                 }
-                numberTv.setText(""+theImageAddress);
-                numberTv.setOnClickListener(new View.OnClickListener() {
+                winningNumberTv.setTextSize(27);
+                winningNumberTv.setText(""+theImageAddress);
+                winningNumberTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        endBtn.setText("champion"); //need other code -> count points+ return to previous intent
+                        winningNumberTv.setTextSize(50);
+                        winningNumberTv.setTextColor(Color.GREEN);
+                        endBtn.setText("Champion!!!"); //need other code -> count points+ return to previous intent
 
                     }
                 });
@@ -145,26 +161,28 @@ public class GameActivity extends Activity {
         }
 
     }
-    private void buttonsPlace(Button button) {
-        Random buttonPlace = new Random();
-        int x = buttonPlace.nextInt(Math.abs( width));
-        int y = buttonPlace.nextInt(Math.abs( height));
-        button.setX(x);
-        button.setY(y);
+    private void winningNumberTvPlace(TextView winningNumberTv) {
+            Random tvPlace = new Random();
+            int x = tvPlace.nextInt(width-250);
+            int y = tvPlace.nextInt(height-600);
+            winningNumberTv.setX((float) x);
+            winningNumberTv.setY((float) y);
     }
     private void imageButtonsPlace(ImageButton imageButton) {
-        Random buttonPlace = new Random();
-        int x = buttonPlace.nextInt(width);
-        int y = buttonPlace.nextInt(height - HEDEAR_HEIGHT);
-        imageButton.setX(x);
-        imageButton.setY(y);
+            Random buttonPlace = new Random();
+            int x = buttonPlace.nextInt(width);
+            int y = buttonPlace.nextInt(height);
+            imageButton.setX(x);
+            imageButton.setY(y);
     }
-    private void numbersPlace(Button numberBtn)
+    private void numbersPlace(TextView numbersTv, int xWinningTv, int yWinningTv)
     {
             Random numbersPlace = new Random();
-            int x = numbersPlace.nextInt(width - HEDEAR_HEIGHT);
-            int y = numbersPlace.nextInt(height - HEDEAR_HEIGHT);
-            numberBtn.setX(x);
-            numberBtn.setY(y);
+            int x = numbersPlace.nextInt(width - 250);
+            int y = numbersPlace.nextInt(height - 600);
+            if ((x<xWinningTv-30 || x>xWinningTv+30)&&(y<yWinningTv-30 || y>yWinningTv+30)) {
+                numbersTv.setX((float)x);
+                numbersTv.setY((float)y);
+            } else numbersPlace(numbersTv,xWinningTv,yWinningTv);
     }
 }
