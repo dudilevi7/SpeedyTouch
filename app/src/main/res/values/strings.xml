@@ -13,4 +13,7 @@
     <string name="start">Start</string>
     <string name="next">Next</string>
     <string name="searchfor">Search for...</string>
+    <string name="save_username">Enter your username</string>
+    <string name="Ok_btn">O.K.</string>
+    <string name="username">Username</string>
 </resources>

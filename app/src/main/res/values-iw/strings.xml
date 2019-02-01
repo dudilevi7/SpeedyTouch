@@ -13,4 +13,7 @@
     <string name="start">התחל</string>
     <string name="next">הבא</string>
     <string name="searchfor">חפש אחרי...</string>
+    <string name="save_username">הכנס את שמך</string>
+    <string name="username">שם משתמש</string>
+    <string name="Ok_btn">אוקיי</string>
 </resources>

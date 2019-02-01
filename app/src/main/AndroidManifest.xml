@@ -14,15 +14,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity"
-            android:screenOrientation="locked"/>
-        <activity android:name=".LevelActivity"
-            android:screenOrientation="locked"/>
-        <activity android:name=".PreGameActivity"
-            android:screenOrientation="locked"/>
-        <activity android:name=".GameActivity"
-            android:screenOrientation="locked"/>
-
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".LevelActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".PreGameActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".GameActivity"
+            android:screenOrientation="locked" />
+        <activity android:name=".RecordsActivity"
+            android:screenOrientation="locked" />
     </application>
 
 </manifest>

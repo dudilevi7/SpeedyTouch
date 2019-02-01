@@ -1,12 +1,20 @@
 package com.example.user.speedytouch;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,7 +26,7 @@ import java.util.Random;
 public class GameActivity extends Activity {
     private ImageButton trueButton;
     private TextView winningNumberTv;
-    private int mHeightOfScreen, mWidthOfScreen,theImageAddress,whatIsTheLevel,mCuntFalseChoosNum = 0;
+    private int mHeightOfScreen, mWidthOfScreen,theImageAddress,whatIsTheLevel;
     private String mWhatIsTheType;
     private ArrayList<TextView> listNumbersLevel1 = new ArrayList<TextView>();
 
@@ -65,23 +73,48 @@ public class GameActivity extends Activity {
                 gameLayout.addView(winningNumberTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 //^^ adding the winning number to screen
                 for (final TextView numbersDisplayOnScreenTv : listNumbersLevel1){
-                        numbersPlace(numbersDisplayOnScreenTv,xWinningTv,yWinningTv); //Positioning of other numbers
-                        gameLayout.addView(numbersDisplayOnScreenTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                        numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                numbersDisplayOnScreenTv.setTextSize(50);
-                                numbersDisplayOnScreenTv.setTextColor(Color.RED);
-                                Toast.makeText(GameActivity.this, "~Wrong~", Toast.LENGTH_SHORT).show();
-                                mCuntFalseChoosNum++;
-                                if (mCuntFalseChoosNum == 3)
-                                {
-                                    Toast.makeText(GameActivity.this, "!!Game Over!!", Toast.LENGTH_SHORT).show();
-                                    //need to do records =    Table
-                                    finish();
-                                }
+                    numbersPlace(numbersDisplayOnScreenTv,xWinningTv,yWinningTv); //Positioning of other numbers
+                    gameLayout.addView(numbersDisplayOnScreenTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            numbersDisplayOnScreenTv.setTextSize(50);
+                            numbersDisplayOnScreenTv.setTextColor(Color.RED);
+                            Toast.makeText(GameActivity.this, "~Wrong~", Toast.LENGTH_SHORT).show();
+
+                            User.getInstance().setmCuntFalseChoosNum(User.getInstance().getmCuntFalseChoosNum()+1);
+                            if (User.getInstance().getmCuntFalseChoosNum() == 3)
+                            {
+                                User.getInstance().setmCuntFalseChoosNum(0);// if the user loose 3 time set to 0 save his name and score and play again
+                                Toast.makeText(GameActivity.this, "!!Game Over!!", Toast.LENGTH_SHORT).show();
+
+                                final Dialog thisDialog = new Dialog(GameActivity.this);
+
+                                    thisDialog.setContentView(R.layout.dialog_save_username);
+                                     Button okBtnDialog = thisDialog.findViewById(R.id.okBtn);
+
+                                okBtnDialog.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        EditText usernameEt = thisDialog.findViewById(R.id.usernameEtDialog);
+                                        SharedPreferences sp = getSharedPreferences("PREFS",MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putString("username",usernameEt.getText().toString());
+                                        editor.putInt("lastScore",User.getInstance().getmScore());
+                                        editor.commit();
+                                        Intent intent = new Intent(GameActivity.this,RecordsActivity.class);
+                                        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);//if the activity is exist it will open and dont create another
+
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                thisDialog.setTitle(R.string.save_username);
+                                thisDialog.show();
+                                //finish();
                             }
-                        });
+                        }
+                    });
                 }
                 winningNumberTv.setTextSize(27);
                 winningNumberTv.setText(""+theImageAddress);
@@ -93,12 +126,13 @@ public class GameActivity extends Activity {
 
                         if (SingletonNumbers1.getInstance().getList().size() != 0)
                         {
+                            User.getInstance().setmScore(User.getInstance().getmScore()+1);//score++ and set it in the User Class
                             SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                             finish();
                         }
                         else{
                             //the user finish the level he found all the numbers, we need a animation here
-                            }
+                        }
                     }
                 });
             }
@@ -169,27 +203,27 @@ public class GameActivity extends Activity {
 
     }
     private void winningNumberTvPlace(TextView winningNumberTv) {
-            Random tvPlace = new Random();
-            int x = tvPlace.nextInt(mWidthOfScreen -250);
-            int y = tvPlace.nextInt(mHeightOfScreen -600);
-            winningNumberTv.setX((float) x);
-            winningNumberTv.setY((float) y);
+        Random tvPlace = new Random();
+        int x = tvPlace.nextInt(mWidthOfScreen -250);
+        int y = tvPlace.nextInt(mHeightOfScreen -600);
+        winningNumberTv.setX((float) x);
+        winningNumberTv.setY((float) y);
     }
     private void imageButtonsPlace(ImageButton imageButton) {
-            Random buttonPlace = new Random();
-            int x = buttonPlace.nextInt(mWidthOfScreen);
-            int y = buttonPlace.nextInt(mHeightOfScreen);
-            imageButton.setX(x);
-            imageButton.setY(y);
+        Random buttonPlace = new Random();
+        int x = buttonPlace.nextInt(mWidthOfScreen);
+        int y = buttonPlace.nextInt(mHeightOfScreen);
+        imageButton.setX(x);
+        imageButton.setY(y);
     }
     private void numbersPlace(TextView numbersTv, int xWinningTv, int yWinningTv)
     {
-            Random numbersPlace = new Random();
-            int x = numbersPlace.nextInt(mWidthOfScreen - 250);
-            int y = numbersPlace.nextInt(mHeightOfScreen - 600);
-            if ((x<xWinningTv-30 || x>xWinningTv+30)&&(y<yWinningTv-30 || y>yWinningTv+30)) {
-                numbersTv.setX((float)x);
-                numbersTv.setY((float)y);
-            } else numbersPlace(numbersTv,xWinningTv,yWinningTv);
+        Random numbersPlace = new Random();
+        int x = numbersPlace.nextInt(mWidthOfScreen - 250);
+        int y = numbersPlace.nextInt(mHeightOfScreen - 600);
+        if ((x<xWinningTv-30 || x>xWinningTv+30)&&(y<yWinningTv-30 || y>yWinningTv+30)) {
+            numbersTv.setX((float)x);
+            numbersTv.setY((float)y);
+        } else numbersPlace(numbersTv,xWinningTv,yWinningTv);
     }
 }
