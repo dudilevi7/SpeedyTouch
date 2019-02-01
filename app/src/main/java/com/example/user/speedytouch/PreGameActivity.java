@@ -14,14 +14,14 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class PreGameActivity extends Activity {
-    String whatIsTheType; //type of the game
-    int whatIsTheLevel,theChoosenImage,theImageIndex;
-    ImageView imageView;
-    TextView numberView;
-    Button startBtn ;
-    SingletonNumbers1 NumbersGameManager = SingletonNumbers1.getInstance();
+    private String whatIsTheType; //type of the game
+    private int whatIsTheLevel,theChoosenImage,theImageIndex;
+    private ImageView imageView;
+    private TextView numberView;
+    private Button startBtn ;
+    private SingletonNumbers1 NumbersGameManager = SingletonNumbers1.getInstance();
     //array of fc -> level 1 (1-20)
-    ArrayList<Integer> fcLevel1 = new ArrayList<Integer>(
+    private ArrayList<Integer> fcLevel1 = new ArrayList<Integer>(
             Arrays.<Integer>asList(R.drawable.barak,R.drawable.ic_launcher_background,R.drawable.speedytouchlogo));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,6 @@ public class PreGameActivity extends Activity {
         imageView = findViewById(R.id.findImageIb);
         startBtn = findViewById(R.id.startBtn);
         numberView = findViewById(R.id.findNumberImageTv);
-
-        // SingletonNumbers1.getInstance().initNumberArrayList();
 
         whatIsTheType = getIntent().getStringExtra("type");
         whatIsTheLevel = getIntent().getIntExtra("level",0);

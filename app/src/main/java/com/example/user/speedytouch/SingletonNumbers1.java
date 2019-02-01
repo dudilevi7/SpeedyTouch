@@ -22,7 +22,8 @@ public class SingletonNumbers1 {
         }
     }
 
-    public Integer getNewNumberToPlay(){
+    public Integer getNewNumberToPlay()
+    {
         Integer numberToPlay;
         ArrayList<Integer> availableNumbers = new ArrayList<Integer>();
 
