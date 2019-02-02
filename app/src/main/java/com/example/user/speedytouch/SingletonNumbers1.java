@@ -63,7 +63,7 @@ public class SingletonNumbers1 {
 
     private void initNumberArrayList()
     {
-        for(int i=0; i < 20; i++) // where x is the size of the list containing your alphabet.
+        for(int i=0; i < 30; i++) // where x is the size of the list containing your alphabet.
             list.add(i);
     }
 }

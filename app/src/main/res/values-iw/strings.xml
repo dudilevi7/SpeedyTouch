@@ -16,4 +16,7 @@
     <string name="save_username">הכנס את שמך</string>
     <string name="username">שם משתמש</string>
     <string name="Ok_btn">אוקיי</string>
+    <string name="finished_level">סיימת שלב</string>
+    <string name="wrong">טעות!</string>
+    <string name="gameover">!!המשחק נגמר!!</string>
 </resources>

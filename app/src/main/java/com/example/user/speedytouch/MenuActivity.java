@@ -48,7 +48,8 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                        intent.putExtra("name","numbers");
+                      //  intent.putExtra("name","numbers");
+                        GameMode.getInstance().setM_Type("numbers");
                         startActivity(intent);
                     }
                 });
@@ -65,7 +66,8 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                        intent.putExtra("name","fc");
+                     //   intent.putExtra("name","fc");
+                        GameMode.getInstance().setM_Type("fc");
                         startActivity(intent);
                     }
                 });
@@ -81,7 +83,8 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                        intent.putExtra("name","countries");
+                     //   intent.putExtra("name","countries");
+                        GameMode.getInstance().setM_Type("countries");
                         startActivity(intent);
                     }
                 });
@@ -97,7 +100,8 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                        intent.putExtra("name","random");
+                  //      intent.putExtra("name","random");
+                        GameMode.getInstance().setM_Type("random");
                         startActivity(intent);
                     }
                 });

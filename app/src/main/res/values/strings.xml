@@ -16,4 +16,7 @@
     <string name="save_username">Enter your username</string>
     <string name="Ok_btn">O.K.</string>
     <string name="username">Username</string>
+    <string name="finished_level">You finished level</string>
+    <string name="wrong">Wrong!</string>
+    <string name="gameover">!!Game Over!!</string>
 </resources>

@@ -19,8 +19,11 @@ public class LevelActivity extends Activity {
         level1Btn = findViewById(R.id.level_1);
         level2Btn = findViewById(R.id.level_2);
         level3Btn = findViewById(R.id.level_3);
+        User.getInstance().setmScore(0);
+        User.getInstance().setmCuntFalseChoosNum(0);
 
-        whatIsTheType = getIntent().getStringExtra("name");
+     //   whatIsTheType = getIntent().getStringExtra("name");
+        whatIsTheType = GameMode.getInstance().getM_Type();
         level1Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,9 +49,11 @@ public class LevelActivity extends Activity {
     }
     private void newActivity(String type,int level){ //start new Activity with the type&level
         Intent intent = new Intent(LevelActivity.this,PreGameActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("level",level);
+      //  intent.putExtra("type",type);
+      //  intent.putExtra("level",level);
+        GameMode.getInstance().setM_level(level);
         startActivity(intent);
+        finish();
     }
     private void animatorBtn(Button btn) { //animation of the level buttons
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(btn,"scaleY", 0.85f).setDuration(2000);
