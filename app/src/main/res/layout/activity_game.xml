@@ -9,11 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="catch it..."
+        android:text="@string/catchIt"
         android:textSize="30sp"
         android:layout_gravity="center"
         android:fontFamily="sans-serif-condensed"
-        android:id="@+id/searchForTv"
+        android:id="@+id/catchItTv"
         android:textStyle="bold">
 
     </TextView>
