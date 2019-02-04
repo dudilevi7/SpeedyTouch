@@ -20,4 +20,8 @@
     <string name="wrong">טעות!</string>
     <string name="gameover">!!המשחק נגמר!!</string>
     <string name="user_score">ניקוד משתמתש</string>
+
+    <string name="time_is_over">הזמן נגמר!צברת פסילה!</string>
+    <string name="catchIt">מצא/י את המספר ...</string>
+    <string name="timeEndsIn">הזמן נגמר בעוד...</string>
 </resources>

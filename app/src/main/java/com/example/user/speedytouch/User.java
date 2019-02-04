@@ -23,10 +23,12 @@ public class User {
     public int getmScore() {
         return mScore;
     }
-    public void addOneToScore()
+
+    public void addToScore(int x)
     {
-        mScore++;
+        mScore+=x;
     }
+
 
     private User() {
         this.mCuntFalseChoosNum = 0;

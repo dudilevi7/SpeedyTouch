@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,22 +25,20 @@ import java.util.Random;
 
 public class GameActivity extends Activity {
     private ImageButton trueButton;
-    private TextView winningNumberTv;
+    private TextView winningNumberTv,catchItTv;
     private int mHeightOfScreen, mWidthOfScreen,theImageAddress,whatIsTheLevel;
     private String mWhatIsTheType;
-    private ArrayList<TextView> listNumbersLevel1 = new ArrayList<TextView>();
-
-
+    private ArrayList<TextView> listNumbersOfTheLevel = new ArrayList<TextView>();
+    private CountDownTimer countDownTimer; //timer for every level
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //userListAdapter = new UserAdapter(userListAdapter, this);
 
         trueButton = findViewById(R.id.theChosenIb);//trueButton set the getting image from previous intent
         winningNumberTv = new TextView(this); //Winning number text view
-
+        catchItTv = findViewById(R.id.catchItTv); //the title of the activity
 
 
         theImageAddress = getIntent().getIntExtra("image",0); //or the chosen number value
@@ -64,132 +64,210 @@ public class GameActivity extends Activity {
                 int yWinningTv = (int)winningNumberTv.getY()+winningNumberTv.getHeight()/2; // Y " "  " " "" " "
                 gameLayout.addView(winningNumberTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 //^^ adding the winning number to screen
-                for (final TextView numbersDisplayOnScreenTv : listNumbersLevel1){
-                    numbersPlace(numbersDisplayOnScreenTv,xWinningTv,yWinningTv); //Positioning of other numbers
-                    gameLayout.addView(numbersDisplayOnScreenTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            numbersDisplayOnScreenTv.setTextSize(50);
-                            numbersDisplayOnScreenTv.setTextColor(Color.RED);
-                            Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
-
-                            User.getInstance().addOneToCuntFalseChoosNum();
-                            if (User.getInstance().getmCuntFalseChoosNum() == 3)
-                            {
-                                // if the user losing 3 time set to 0 save his name and score and play again
-                                Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
-                                gameIsFinished();
-                            }
-                        }
-                    });
+                for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
+                    numbersPlace(numbersDisplayOnScreenTv, xWinningTv, yWinningTv); //Positioning of other numbers
+                    gameLayout.addView(numbersDisplayOnScreenTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
-                winningNumberTv.setTextSize(27);
-                winningNumberTv.setText(""+theImageAddress);
-                winningNumberTv.setOnClickListener(new View.OnClickListener() {
+               countDownTimer = new CountDownTimer(7000,1000) { //7 seconds for each screen in level 1
                     @Override
-                    public void onClick(View v) { //on click the right number
-                        winningNumberTv.setTextSize(50);
-                        winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().addOneToScore();//score++ and set it in the User Class
-                        SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
-                        if ((User.getInstance().getmScore()==10)||SingletonNumbers1.getInstance().getList().size()==0){ //finished in success
-                            Toast.makeText(GameActivity.this, getString(R.string.finished_level)+1+"!", Toast.LENGTH_LONG).show();
-                            gameIsFinished();
-                        }
-                        else finish();
+                    public void onTick(long millisUntilFinished) {
+                        if (millisUntilFinished<6000) //when the time < 6 seconds
+                            catchItTv.setText(getString(R.string.timeEndsIn)+" "+millisUntilFinished/1000); //the title change to the time remaining
+                            for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
+                                numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        numbersDisplayOnScreenTv.setTextSize(50);
+                                        numbersDisplayOnScreenTv.setTextColor(Color.RED);
+                                        Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
+                                        User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                                        if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                                            // if the user losing 3 time set to 0
+                                            Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                                            gameIsFinished(); //function of gameover that open dialog for saving details
+                                            countDownTimer.cancel(); // cancel the timer when 3 faults
+                                        } else { //falseCount < 3
+                                           countDownTimer.cancel(); //cancel the timer
+                                           finish(); //back the pre activity for find new number
+                                        }
+                                    }
+                                });
+                            }
+                            winningNumberTv.setTextSize(27);
+                            winningNumberTv.setText("" + theImageAddress);
+                            winningNumberTv.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) { //on click the right number
+                                    winningNumberTv.setTextSize(50);
+                                    winningNumberTv.setTextColor(Color.GREEN);
+                                    User.getInstance().addToScore(1);//score++ and set it in the User Class
+                                    SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
+                                    if ((User.getInstance().getmScore() == 10)) { //finished in success
+                                        Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ 1 + "!", Toast.LENGTH_LONG).show();
+                                        countDownTimer.cancel();
+                                        gameIsFinished(); //function of open dialog for saving details
+                                    } else { //scoreCont < 10;
+                                        countDownTimer.cancel(); //cancel the timer
+                                        finish(); //back the pre activity for find new number
+                                    }
+                                }
+                            });
+
                     }
-                });
+
+                    @Override
+                    public void onFinish() { //On finish the timer!!!
+                        Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
+                        User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                        if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                            // if the user losing 3 time set to 0 save his name and score and play again
+                            Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                            gameIsFinished(); //function of open dialog for saving details
+                        }else finish(); //when falseCount<3 -> back to pre activity for find new number
+                    }
+                }.start();
             }
             if(whatIsTheLevel==2){
-                initNumbersDisplayOnScreen(50); //initilaze with 50 numbers on screen
+                initNumbersDisplayOnScreen(50); //Initliaze with 50 numbers on the screen
                 trueButton.setVisibility(View.INVISIBLE); //hide the trueButton(type of fc/countries/random)
                 winningNumberTvPlace(winningNumberTv); //Positioning of the winning number
                 int xWinningTv = (int)winningNumberTv.getX()+winningNumberTv.getWidth()/2; // X of winning number
                 int yWinningTv = (int)winningNumberTv.getY()+winningNumberTv.getHeight()/2; // Y " "  " " "" " "
                 gameLayout.addView(winningNumberTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 //^^ adding the winning number to screen
-                for (final TextView numbersDisplayOnScreenTv : listNumbersLevel1){
-                    numbersPlace(numbersDisplayOnScreenTv,xWinningTv,yWinningTv); //Positioning of other numbers
-                    gameLayout.addView(numbersDisplayOnScreenTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            numbersDisplayOnScreenTv.setTextSize(50);
-                            numbersDisplayOnScreenTv.setTextColor(Color.RED);
-                            Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
-
-                            User.getInstance().addOneToCuntFalseChoosNum();
-                            if (User.getInstance().getmCuntFalseChoosNum() == 3)
-                            {
-                                // if the user losing 3 time set to 0 save his name and score and play again
-                                Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
-                                gameIsFinished();
-                            }
-                        }
-                    });
+                for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
+                    numbersPlace(numbersDisplayOnScreenTv, xWinningTv, yWinningTv); //Positioning of other numbers
+                    gameLayout.addView(numbersDisplayOnScreenTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
-                winningNumberTv.setTextSize(27);
-                winningNumberTv.setText(""+theImageAddress);
-                winningNumberTv.setOnClickListener(new View.OnClickListener() {
+                countDownTimer = new CountDownTimer(6000,1000) { //6 seconds for each screen in level 2
                     @Override
-                    public void onClick(View v) { //on click the right number
-                        winningNumberTv.setTextSize(50);
-                        winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().addOneToScore();//score++ and set it in the User Class
-                        SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
-                        if ((User.getInstance().getmScore()==10)||SingletonNumbers1.getInstance().getList().size()==0){ //finished in success
-                            Toast.makeText(GameActivity.this, getString(R.string.finished_level)+2+"!", Toast.LENGTH_LONG).show();
-                            gameIsFinished();
+                    public void onTick(long millisUntilFinished) {
+                        if (millisUntilFinished<5000) //when the time < 5 seconds
+                            catchItTv.setText(getString(R.string.timeEndsIn)+" "+millisUntilFinished/1000); //the title change to the time remaining
+                        for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
+                            numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    numbersDisplayOnScreenTv.setTextSize(50);
+                                    numbersDisplayOnScreenTv.setTextColor(Color.RED);
+                                    Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
+                                    User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                                    if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                                        // if the user losing 3 time set to 0
+                                        Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                                        gameIsFinished(); //function of gameover that open dialog for saving details
+                                        countDownTimer.cancel(); // cancel the timer when 3 faults
+                                    } else { //falseCount < 3
+                                        countDownTimer.cancel(); //cancel the timer
+                                        finish(); //back the pre activity for find new number
+                                    }
+                                }
+                            });
                         }
-                        else finish();
+                        winningNumberTv.setTextSize(27);
+                        winningNumberTv.setText("" + theImageAddress);
+                        winningNumberTv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) { //on click the right number
+                                winningNumberTv.setTextSize(50);
+                                winningNumberTv.setTextColor(Color.GREEN);
+                                User.getInstance().addToScore(2);//score+2 and set it in the User Class
+                                SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
+                                if ((User.getInstance().getmScore() == 10) || SingletonNumbers1.getInstance().getList().size() == 0) { //finished in success
+                                    Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ 2 + "!", Toast.LENGTH_LONG).show();
+                                    countDownTimer.cancel();
+                                    gameIsFinished(); //function of open dialog for saving details
+                                } else { //scoreCont < 10;
+                                    countDownTimer.cancel(); //cancel the timer
+                                    finish(); //back the pre activity for find new number
+                                }
+                            }
+                        });
+
                     }
-                });
+
+                    @Override
+                    public void onFinish() { //On finish the timer!!!
+                        Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
+                        User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                        if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                            // if the user losing 3 time set to 0 save his name and score and play again
+                            Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                            gameIsFinished(); //function of open dialog for saving details
+                        }else finish(); //when falseCount<3 -> back to pre activity for find new number
+                    }
+                }.start();
             }
             if(whatIsTheLevel==3){
-                initNumbersDisplayOnScreen(70); //initilaze with 70 numbers on screen
+                initNumbersDisplayOnScreen(70); //Initliaze with 70 numbers on the screen
                 trueButton.setVisibility(View.INVISIBLE); //hide the trueButton(type of fc/countries/random)
                 winningNumberTvPlace(winningNumberTv); //Positioning of the winning number
                 int xWinningTv = (int)winningNumberTv.getX()+winningNumberTv.getWidth()/2; // X of winning number
                 int yWinningTv = (int)winningNumberTv.getY()+winningNumberTv.getHeight()/2; // Y " "  " " "" " "
                 gameLayout.addView(winningNumberTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 //^^ adding the winning number to screen
-                for (final TextView numbersDisplayOnScreenTv : listNumbersLevel1){
-                    numbersPlace(numbersDisplayOnScreenTv,xWinningTv,yWinningTv); //Positioning of other numbers
-                    gameLayout.addView(numbersDisplayOnScreenTv,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            numbersDisplayOnScreenTv.setTextSize(50);
-                            numbersDisplayOnScreenTv.setTextColor(Color.RED);
-                            Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
-
-                            User.getInstance().addOneToCuntFalseChoosNum();
-                            if (User.getInstance().getmCuntFalseChoosNum() == 3)
-                            {
-                                // if the user losing 3 time set to 0 save his name and score and play again
-                                Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
-                                gameIsFinished();
-                            }
-                        }
-                    });
+                for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
+                    numbersPlace(numbersDisplayOnScreenTv, xWinningTv, yWinningTv); //Positioning of other numbers
+                    gameLayout.addView(numbersDisplayOnScreenTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
-                winningNumberTv.setTextSize(27);
-                winningNumberTv.setText(""+theImageAddress);
-                winningNumberTv.setOnClickListener(new View.OnClickListener() {
+                countDownTimer = new CountDownTimer(5000,1000) { //5 seconds for each screen in level 3
                     @Override
-                    public void onClick(View v) { //on click the right number
-                        winningNumberTv.setTextSize(50);
-                        winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().addOneToScore();//score++ and set it in the User Class
-                        SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
-                        if ((User.getInstance().getmScore()==10)||SingletonNumbers1.getInstance().getList().size()==0){ //finished in success
-                            Toast.makeText(GameActivity.this, getString(R.string.finished_level)+3+"!", Toast.LENGTH_LONG).show();
-                            gameIsFinished();
+                    public void onTick(long millisUntilFinished) {
+                        if (millisUntilFinished<5000) //when the time < 5 seconds
+                            catchItTv.setText(getString(R.string.timeEndsIn)+" "+millisUntilFinished/1000); //the title change to the time remaining
+                        for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
+                            numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    numbersDisplayOnScreenTv.setTextSize(50);
+                                    numbersDisplayOnScreenTv.setTextColor(Color.RED);
+                                    Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
+                                    User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                                    if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                                        // if the user losing 3 time set to 0
+                                        Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                                        gameIsFinished(); //function of gameover that open dialog for saving details
+                                        countDownTimer.cancel(); // cancel the timer when 3 faults
+                                    } else { //falseCount < 3
+                                        countDownTimer.cancel(); //cancel the timer
+                                        finish(); //back the pre activity for find new number
+                                    }
+                                }
+                            });
                         }
-                        else finish();
+                        winningNumberTv.setTextSize(27);
+                        winningNumberTv.setText("" + theImageAddress);
+                        winningNumberTv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) { //on click the right number
+                                winningNumberTv.setTextSize(50);
+                                winningNumberTv.setTextColor(Color.GREEN);
+                                User.getInstance().addToScore(3);//score++ and set it in the User Class
+                                SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
+                                if ((User.getInstance().getmScore() == 10) || SingletonNumbers1.getInstance().getList().size() == 0) { //finished in success
+                                    Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ 3 + "!", Toast.LENGTH_LONG).show();
+                                    countDownTimer.cancel();
+                                    gameIsFinished(); //function of open dialog for saving details
+                                } else { //scoreCont < 10;
+                                    countDownTimer.cancel(); //cancel the timer
+                                    finish(); //back the pre activity for find new number
+                                }
+                            }
+                        });
+
                     }
-                });
+
+                    @Override
+                    public void onFinish() { //On finish the timer!!!
+                        Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
+                        User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                        if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                            // if the user losing 3 time set to 0 save his name and score and play again
+                            Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                            gameIsFinished(); //function of open dialog for saving details
+                        }else finish(); //when falseCount<3 -> back to pre activity for find new number
+                    }
+                }.start();
             }
         }
         if (mWhatIsTheType.contains("fc")) {
@@ -288,7 +366,7 @@ public class GameActivity extends Activity {
                 numbersTv.setText("" + i);
                 numbersTv.setTextSize(27);
                 numbersTv.setBackgroundColor(Color.TRANSPARENT);
-                listNumbersLevel1.add(numbersTv);
+                listNumbersOfTheLevel.add(numbersTv);
             }
         }
     }

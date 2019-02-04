@@ -20,4 +20,5 @@ int SPLASH_TIME_OUT = 1500;
             }
         },SPLASH_TIME_OUT);
     }
+
 }
