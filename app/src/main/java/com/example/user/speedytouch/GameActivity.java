@@ -24,10 +24,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameActivity extends Activity {
-    private ImageButton trueButton;
     private TextView winningNumberTv,catchItTv;
-    private int mHeightOfScreen, mWidthOfScreen,theImageAddress,whatIsTheLevel;
-    private String mWhatIsTheType;
+    private int mHeightOfScreen, mWidthOfScreen,theWinningNumber,whatIsTheLevel;
     private ArrayList<TextView> listNumbersOfTheLevel = new ArrayList<TextView>();
     private CountDownTimer countDownTimer; //timer for every level
     @Override
@@ -36,14 +34,12 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
 
 
-        trueButton = findViewById(R.id.theChosenIb);//trueButton set the getting image from previous intent
         winningNumberTv = new TextView(this); //Winning number text view
         catchItTv = findViewById(R.id.catchItTv); //the title of the activity
 
 
-        theImageAddress = getIntent().getIntExtra("image",0); //or the chosen number value
+        theWinningNumber = getIntent().getIntExtra("number",0); //or the chosen number value
         whatIsTheLevel = GameMode.getInstance().getM_level(); //getLevel
-        mWhatIsTheType = GameMode.getInstance().getM_Type(); //getType
 
 
         //define screensize
@@ -59,7 +55,6 @@ public class GameActivity extends Activity {
     }
     private void gameByLevel(final int theLevel, RelativeLayout gameLayout){
         initNumbersDisplayOnScreen(GameMode.getInstance().getLengthOfNumberDisplayOnScreen()); //Initliaze with 30/50/70 numbers (lev 1/2/3)
-        trueButton.setVisibility(View.INVISIBLE); //hide the trueButton(type of fc/countries/random)
         winningNumberTvPlace(winningNumberTv); //Positioning of the winning number
         int xWinningTv = (int)winningNumberTv.getX()+winningNumberTv.getWidth()/2; // X of winning number
         int yWinningTv = (int)winningNumberTv.getY()+winningNumberTv.getHeight()/2; // Y " "  " " "" " "
@@ -95,7 +90,7 @@ public class GameActivity extends Activity {
                     });
                 }
                 winningNumberTv.setTextSize(27);
-                winningNumberTv.setText("" + theImageAddress);
+                winningNumberTv.setText("" + theWinningNumber);
                 winningNumberTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) { //on click the right number
@@ -158,7 +153,7 @@ public class GameActivity extends Activity {
     private void initNumbersDisplayOnScreen(int k) {
         for(int i=0; i < k; i++) // for of the other numbers (looser numbers)
         {
-            if (i!=theImageAddress) { //i! = winning number
+            if (i!=theWinningNumber) { //i! = winning number
                 TextView numbersTv = new TextView(this);
                 numbersTv.setId(i);
                 numbersTv.setText("" + i);
@@ -186,5 +181,11 @@ public class GameActivity extends Activity {
             numbersTv.setX((float)x);
             numbersTv.setY((float)y);
         } else numbersPlace(numbersTv,xWinningTv,yWinningTv);
+    }
+    public void onBackPressed() {
+        User.getInstance().resetUser();
+        Intent intent = new Intent(GameActivity.this,MenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

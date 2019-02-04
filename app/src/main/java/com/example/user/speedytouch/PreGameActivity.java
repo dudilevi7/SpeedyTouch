@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class PreGameActivity extends Activity {
-    private String whatIsTheType; //type of the game
     private int whatIsTheLevel,theChoosenNumber,theNumberIndex;
     private ImageView imageView;
     private TextView numberView;
@@ -29,14 +28,14 @@ public class PreGameActivity extends Activity {
         startBtn = findViewById(R.id.startBtn);
         numberView = findViewById(R.id.findNumberImageTv);
 
-        whatIsTheType = GameMode.getInstance().getM_Type();
+
         whatIsTheLevel = GameMode.getInstance().getM_level();
 
 
         Random rand = new Random();
         if(NumbersGameManager.getList().size()==0){ //Level has been finished !
-             Toast.makeText(getApplicationContext(),"The level is done!",Toast.LENGTH_SHORT).show();
-         }
+            Toast.makeText(getApplicationContext(),"The level is done!",Toast.LENGTH_SHORT).show();
+        }
         else {
             theNumberIndex = NumbersGameManager.getNewNumberToPlay();
             theChoosenNumber = NumbersGameManager.getList().get(theNumberIndex); //getting the image address
@@ -46,7 +45,7 @@ public class PreGameActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PreGameActivity.this,GameActivity.class);
-                intent.putExtra("image",theChoosenNumber);
+                intent.putExtra("number",theChoosenNumber);
                 startActivity(intent);
             }
         });
@@ -67,4 +66,3 @@ public class PreGameActivity extends Activity {
         onCreate(Bundle.EMPTY);
     }
 }
-
