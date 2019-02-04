@@ -19,8 +19,8 @@ public class LevelActivity extends Activity {
         level1Btn = findViewById(R.id.level_1);
         level2Btn = findViewById(R.id.level_2);
         level3Btn = findViewById(R.id.level_3);
-        User.getInstance().setmScore(0);
-        User.getInstance().setmCuntFalseChoosNum(0);
+
+
 
      //   whatIsTheType = getIntent().getStringExtra("name");
         whatIsTheType = GameMode.getInstance().getM_Type();

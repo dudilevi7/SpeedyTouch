@@ -2,33 +2,36 @@ package com.example.user.speedytouch;
 
 public class User {
     private static User instance;
-    private String m_Name;
+    private String mName;
     private int mCuntFalseChoosNum = 0;
     private int mScore = 0;
 
 
-    public String getM_Name() {
-        return m_Name;
+    public String getmName() {
+        return mName;
     }
 
-    public void setM_Name(String m_Name) {
-        this.m_Name = m_Name;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
     public int getmCuntFalseChoosNum() {
         return mCuntFalseChoosNum;
     }
 
-    public void setmCuntFalseChoosNum(int mCuntFalseChoosNum) {
-        this.mCuntFalseChoosNum = mCuntFalseChoosNum;
-    }
 
     public int getmScore() {
         return mScore;
     }
+    public void addOneToScore()
+    {
+        mScore++;
+    }
 
-    public void setmScore(int mScore) {
-        this.mScore = mScore;
+    private User() {
+        this.mCuntFalseChoosNum = 0;
+        this.mScore = 0;
+        this.mName = null;
     }
 
     public static User getInstance(){
@@ -37,5 +40,15 @@ public class User {
             instance = new User();
         }
         return instance;
+    }
+    public void resetUser()
+    {
+        mName = null;
+        mCuntFalseChoosNum = 0;
+        mScore = 0;
+    }
+    public void addOneToCuntFalseChoosNum()
+    {
+        mCuntFalseChoosNum++;
     }
 }

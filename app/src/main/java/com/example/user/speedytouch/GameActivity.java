@@ -1,14 +1,12 @@
 package com.example.user.speedytouch;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -36,8 +34,12 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //userListAdapter = new UserAdapter(userListAdapter, this);
+
         trueButton = findViewById(R.id.theChosenIb);//trueButton set the getting image from previous intent
         winningNumberTv = new TextView(this); //Winning number text view
+
+
 
         theImageAddress = getIntent().getIntExtra("image",0); //or the chosen number value
         whatIsTheLevel = GameMode.getInstance().getM_level(); //getLevel
@@ -72,10 +74,10 @@ public class GameActivity extends Activity {
                             numbersDisplayOnScreenTv.setTextColor(Color.RED);
                             Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
 
-                            User.getInstance().setmCuntFalseChoosNum(User.getInstance().getmCuntFalseChoosNum()+1);
+                            User.getInstance().addOneToCuntFalseChoosNum();
                             if (User.getInstance().getmCuntFalseChoosNum() == 3)
                             {
-                                User.getInstance().setmCuntFalseChoosNum(0);// if the user losing 3 time set to 0 save his name and score and play again
+                                // if the user losing 3 time set to 0 save his name and score and play again
                                 Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
                                 gameIsFinished();
                             }
@@ -89,7 +91,7 @@ public class GameActivity extends Activity {
                     public void onClick(View v) { //on click the right number
                         winningNumberTv.setTextSize(50);
                         winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().setmScore(User.getInstance().getmScore()+1);//score++ and set it in the User Class
+                        User.getInstance().addOneToScore();//score++ and set it in the User Class
                         SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                         if ((User.getInstance().getmScore()==10)||SingletonNumbers1.getInstance().getList().size()==0){ //finished in success
                             Toast.makeText(GameActivity.this, getString(R.string.finished_level)+1+"!", Toast.LENGTH_LONG).show();
@@ -117,10 +119,10 @@ public class GameActivity extends Activity {
                             numbersDisplayOnScreenTv.setTextColor(Color.RED);
                             Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
 
-                            User.getInstance().setmCuntFalseChoosNum(User.getInstance().getmCuntFalseChoosNum()+1);
+                            User.getInstance().addOneToCuntFalseChoosNum();
                             if (User.getInstance().getmCuntFalseChoosNum() == 3)
                             {
-                                User.getInstance().setmCuntFalseChoosNum(0);// if the user losing 3 time set to 0 save his name and score and play again
+                                // if the user losing 3 time set to 0 save his name and score and play again
                                 Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
                                 gameIsFinished();
                             }
@@ -134,7 +136,7 @@ public class GameActivity extends Activity {
                     public void onClick(View v) { //on click the right number
                         winningNumberTv.setTextSize(50);
                         winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().setmScore(User.getInstance().getmScore()+1);//score++ and set it in the User Class
+                        User.getInstance().addOneToScore();//score++ and set it in the User Class
                         SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                         if ((User.getInstance().getmScore()==10)||SingletonNumbers1.getInstance().getList().size()==0){ //finished in success
                             Toast.makeText(GameActivity.this, getString(R.string.finished_level)+2+"!", Toast.LENGTH_LONG).show();
@@ -162,10 +164,10 @@ public class GameActivity extends Activity {
                             numbersDisplayOnScreenTv.setTextColor(Color.RED);
                             Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
 
-                            User.getInstance().setmCuntFalseChoosNum(User.getInstance().getmCuntFalseChoosNum()+1);
+                            User.getInstance().addOneToCuntFalseChoosNum();
                             if (User.getInstance().getmCuntFalseChoosNum() == 3)
                             {
-                                User.getInstance().setmCuntFalseChoosNum(0);// if the user losing 3 time set to 0 save his name and score and play again
+                                // if the user losing 3 time set to 0 save his name and score and play again
                                 Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
                                 gameIsFinished();
                             }
@@ -179,7 +181,7 @@ public class GameActivity extends Activity {
                     public void onClick(View v) { //on click the right number
                         winningNumberTv.setTextSize(50);
                         winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().setmScore(User.getInstance().getmScore()+1);//score++ and set it in the User Class
+                        User.getInstance().addOneToScore();//score++ and set it in the User Class
                         SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                         if ((User.getInstance().getmScore()==10)||SingletonNumbers1.getInstance().getList().size()==0){ //finished in success
                             Toast.makeText(GameActivity.this, getString(R.string.finished_level)+3+"!", Toast.LENGTH_LONG).show();
@@ -261,11 +263,13 @@ public class GameActivity extends Activity {
                 EditText usernameEt = thisDialog.findViewById(R.id.usernameEtDialog);
                 SharedPreferences sp = getSharedPreferences("PREFS",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("username",usernameEt.getText().toString());
-                editor.putInt("lastScore",User.getInstance().getmScore());
+
+                editor.putInt(usernameEt.getText().toString(),User.getInstance().getmScore());
                 editor.commit();
+
+                User.getInstance().resetUser();
                 Intent intent = new Intent(GameActivity.this,RecordsActivity.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);//if the activity is exist it will open and dont create another
+
                 startActivity(intent);
             }
         });
