@@ -49,6 +49,7 @@ public class RecordsActivity extends Activity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

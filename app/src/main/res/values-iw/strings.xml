@@ -19,9 +19,12 @@
     <string name="finished_level">סיימת שלב</string>
     <string name="wrong">טעות!</string>
     <string name="gameover">!!המשחק נגמר!!</string>
-    <string name="user_score">ניקוד משתמתש</string>
+    <string name="user_score">ניקוד משתמש</string>
 
     <string name="time_is_over">הזמן נגמר!צברת פסילה!</string>
     <string name="catchIt">מצא/י את המספר ...</string>
     <string name="timeEndsIn">הזמן נגמר בעוד...</string>
+    <string name="username_lbl">:שם משתמש</string>
+    <string name="user_score_lbl">:ניקוד משתמש</string>
+    <string name="app_leaderboard">טבלת שיאים</string>
 </resources>

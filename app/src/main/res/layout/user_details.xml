@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/usernameTvUdLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:text="@string/username_lbl" />
 
     <TextView
         android:id="@+id/usernameTvUd"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/usernameTvUdLbl"
         android:text="@string/username" />
+
+    <TextView
+        android:id="@+id/userScoreTvLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/user_score_lbl" />
 
     <TextView
         android:id="@+id/userScoreTv"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
-        android:layout_toEndOf="@id/usernameTvUd"
+        android:layout_toEndOf="@id/userScoreTvLbl"
         android:text="@string/user_score" />
 
 </RelativeLayout>

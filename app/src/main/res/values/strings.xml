@@ -23,4 +23,7 @@
     <string name="time_is_over">Time is over! +1 fault</string>
     <string name="catchIt">Catch the number...</string>
     <string name="timeEndsIn">Time ends in...</string>
+    <string name="username_lbl">Username:</string>
+    <string name="user_score_lbl">User Score:</string>
+    <string name="app_leaderboard">App Leaderboard</string>
 </resources>
