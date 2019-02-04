@@ -12,24 +12,24 @@ import java.util.List;
 
 public class UserAdapter extends BaseAdapter {
 
-    private List<User> usersList;
+    private List<UserRecords> mUsersRecordsList;
     private Context m_Context;
     private TextView usernameTv;
     private TextView scoreTv;
 
-    public UserAdapter(List<User> usersList, Context m_Context) {
-        this.usersList = usersList;
+    public UserAdapter(List<UserRecords> usersRecordsList, Context m_Context) {
+        this.mUsersRecordsList = usersRecordsList;
         this.m_Context = m_Context;
     }
 
     @Override
     public int getCount() {
-        return usersList.size();
+        return mUsersRecordsList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return usersList.get(position);
+        return mUsersRecordsList.get(position);
     }
 
     @Override
@@ -46,17 +46,17 @@ public class UserAdapter extends BaseAdapter {
             row = inflater.inflate(R.layout.user_details,parent,false);
         }
 
-        User user= usersList.get(position);
+        UserRecords userRecords= mUsersRecordsList.get(position);
 
         usernameTv = row.findViewById(R.id.usernameTvUd);
         scoreTv =  row.findViewById(R.id.userScoreTv);
-        ImageButton prodcut_Img_btn = row.findViewById(R.id.imageBtnUd);
 
 
-        usernameTv .setText(user.getmName());
-        scoreTv.setText(user.getmScore());
 
-        //prodcut_Img_btn.setImageBitmap(user.getM_bitmap());
+        usernameTv .setText(userRecords.getmNameUR());
+        scoreTv.setText(userRecords.getmScoreUR());
+
+
 
         return row;
     }
