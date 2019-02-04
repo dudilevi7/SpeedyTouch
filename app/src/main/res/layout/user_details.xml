@@ -8,7 +8,7 @@
         android:id="@+id/usernameTvUd"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="20dp"
         android:text="@string/username" />
 
