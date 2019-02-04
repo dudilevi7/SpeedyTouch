@@ -19,6 +19,7 @@
     <string name="finished_level">You finished level</string>
     <string name="wrong">Wrong!</string>
     <string name="gameover">!!Game Over!!</string>
+    <string name="user_score">User Score</string>
     <string name="time_is_over">Time is over! +1 fault</string>
     <string name="catchIt">Catch the number...</string>
     <string name="timeEndsIn">Time ends in...</string>

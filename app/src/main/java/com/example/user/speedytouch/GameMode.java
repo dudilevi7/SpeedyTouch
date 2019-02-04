@@ -23,4 +23,14 @@ public class GameMode {
         }
         return instance;
     }
+    public int getLengthOfNumberDisplayOnScreen(){
+       if (m_Level==2) return 50;
+       if (m_Level==3) return 70;
+       return 30;
+    }
+    public int getMillisByLevel(){
+        if(m_Level==2) return 6000;
+        if(m_Level==3) return 5000;
+        return 7000;
+    }
 }

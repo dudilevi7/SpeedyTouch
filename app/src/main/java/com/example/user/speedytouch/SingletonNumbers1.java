@@ -13,7 +13,7 @@ public class SingletonNumbers1 {
     private SingletonNumbers1(){
         list = new ArrayList<Integer>();
         chosenNumbers = new ArrayList<Integer>();
-        this.initNumberArrayList();
+        this.initNumberArrayList(GameMode.getInstance().getLengthOfNumberDisplayOnScreen());
     }
 
     private void chooseNumber(Integer number){
@@ -61,9 +61,9 @@ public class SingletonNumbers1 {
         return instance;
     }
 
-    private void initNumberArrayList()
+    private void initNumberArrayList(int length)
     {
-        for(int i=0; i < 30; i++) // where x is the size of the list containing your alphabet.
+        for(int i=0; i < length; i++) // where x is the size of the list containing your alphabet.
             list.add(i);
     }
 }
