@@ -3,6 +3,7 @@ package com.example.user.speedytouch;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,7 +25,7 @@ public class PreGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
-        imageView = findViewById(R.id.findImageIb);
+
         startBtn = findViewById(R.id.startBtn);
         numberView = findViewById(R.id.findNumberImageTv);
 
@@ -40,6 +41,7 @@ public class PreGameActivity extends Activity {
             theNumberIndex = NumbersGameManager.getNewNumberToPlay();
             theChoosenNumber = NumbersGameManager.getList().get(theNumberIndex); //getting the image address
             numberView.setText(""+theChoosenNumber); //setting the image
+            numberView.setGravity(Gravity.CENTER);
         }
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +58,7 @@ public class PreGameActivity extends Activity {
     public void onBackPressed() {
         User.getInstance().resetUser();
         Intent intent = new Intent(PreGameActivity.this,MenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
