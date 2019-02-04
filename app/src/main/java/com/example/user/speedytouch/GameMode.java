@@ -2,15 +2,8 @@ package com.example.user.speedytouch;
 
 public class GameMode {
     private static GameMode instance;
-    private String m_Type;
     private int m_Level;
 
-    public String getM_Type() {
-        return m_Type;
-    }
-    public void setM_Type(String m_Type){
-        this.m_Type = m_Type;
-    }
     public int getM_level(){
         return m_Level;
     }
@@ -22,5 +15,15 @@ public class GameMode {
             instance = new GameMode();
         }
         return instance;
+    }
+    public int getLengthOfNumberDisplayOnScreen(){
+       if (m_Level==2) return 50;
+       if (m_Level==3) return 70;
+       return 30;
+    }
+    public int getMillisByLevel(){
+        if(m_Level==2) return 6000;
+        if(m_Level==3) return 5000;
+        return 7000;
     }
 }

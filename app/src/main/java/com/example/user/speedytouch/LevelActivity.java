@@ -22,8 +22,7 @@ public class LevelActivity extends Activity {
 
 
 
-     //   whatIsTheType = getIntent().getStringExtra("name");
-        whatIsTheType = GameMode.getInstance().getM_Type();
+
         level1Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

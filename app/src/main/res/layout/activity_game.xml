@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/speedyback2"
     android:id="@+id/gameLayoutLl">
     <TextView
         android:layout_width="wrap_content"
@@ -23,13 +24,7 @@
         android:id="@+id/relativeBtns">
 
 
-        <ImageButton
-            android:id="@+id/theChosenIb"
-            android:layout_marginTop="30dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center" />
+
 
     </RelativeLayout>
 </LinearLayout>
