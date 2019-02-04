@@ -12,7 +12,6 @@ public class RecordsActivity extends Activity {
     private TextView mUsername;
     private int mLastScore;
     private String mLastName;
-
     private int mBestScore1,mBestScore2,mBestScore3;
 
     @Override
