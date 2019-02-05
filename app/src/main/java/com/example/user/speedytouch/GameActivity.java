@@ -90,7 +90,12 @@ public class GameActivity extends Activity {
                                 countDownTimer.cancel(); // cancel the timer when 3 faults
                             } else { //falseCount < 3
                                 countDownTimer.cancel(); //cancel the timer
-                                finish(); //back the pre activity for find new number
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                },1500); //back the pre activity for find new number
                             }
                         }
                     });
@@ -111,7 +116,12 @@ public class GameActivity extends Activity {
                             gameIsFinished(); //function of open dialog for saving details
                         } else { //scoreCont < 10;
                             countDownTimer.cancel(); //cancel the timer
-                            finish(); //back the pre activity for find new number
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            },1500); //back the pre activity for find new number
                         }
                     }
                 });
@@ -120,13 +130,20 @@ public class GameActivity extends Activity {
 
             @Override
             public void onFinish() { //On finish the timer!!!
+                wrongAnswerMp.start();
                 Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
                 if (User.getInstance().getmCuntFalseChoosNum() == 3) {
                     // if the user losing 3 time set to 0 save his name and score and play again
                     Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
                     gameIsFinished(); //function of open dialog for saving details
-                }else finish(); //when falseCount<3 -> back to pre activity for find new number
+                }else
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    },1500); //when falseCount<3 -> back to pre activity for find new number
             }
         }.start();
     }
