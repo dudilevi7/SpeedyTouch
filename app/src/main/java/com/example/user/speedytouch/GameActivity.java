@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -28,11 +29,15 @@ public class GameActivity extends Activity {
     private int mHeightOfScreen, mWidthOfScreen,theWinningNumber,whatIsTheLevel;
     private ArrayList<TextView> listNumbersOfTheLevel = new ArrayList<TextView>();
     private CountDownTimer countDownTimer; //timer for every level
+    private MediaPlayer correctAnswerMp;
+    private MediaPlayer wrongAnswerMp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        wrongAnswerMp = MediaPlayer.create(this,R.raw.wah_wah_wah_fail_sound_effect);
+        correctAnswerMp = MediaPlayer.create(this,R.raw.correct_answer_sound_effect);
 
         winningNumberTv = new TextView(this); //Winning number text view
         catchItTv = findViewById(R.id.catchItTv); //the title of the activity
@@ -77,6 +82,7 @@ public class GameActivity extends Activity {
                             numbersDisplayOnScreenTv.setTextColor(Color.RED);
                             Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
                             User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                            wrongAnswerMp.start();
                             if (User.getInstance().getmCuntFalseChoosNum() == 3) {
                                 // if the user losing 3 time set to 0
                                 Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
@@ -97,6 +103,7 @@ public class GameActivity extends Activity {
                         winningNumberTv.setTextSize(50);
                         winningNumberTv.setTextColor(Color.GREEN);
                         User.getInstance().addToScore(1);//score++ and set it in the User Class
+                        correctAnswerMp.start();
                         SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                         if ((User.getInstance().getmScore() == 10)) { //finished in success
                             Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ theLevel + "!", Toast.LENGTH_LONG).show();
@@ -147,7 +154,6 @@ public class GameActivity extends Activity {
 
         thisDialog.setTitle(R.string.save_username);
         thisDialog.show();
-        //finish();
     }
 
     private void initNumbersDisplayOnScreen(int k) {
