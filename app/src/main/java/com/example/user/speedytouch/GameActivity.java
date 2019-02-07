@@ -31,6 +31,7 @@ public class GameActivity extends Activity {
     private CountDownTimer countDownTimer; //timer for every level
     private MediaPlayer correctAnswerMp;
     private MediaPlayer wrongAnswerMp;
+    private boolean isAlreadtTouchTv = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,28 +75,35 @@ public class GameActivity extends Activity {
             public void onTick(long millisUntilFinished) {
                 if (millisUntilFinished<GameMode.getInstance().getMillisByLevel()-1000)
                     catchItTv.setText(getString(R.string.timeEndsIn)+" "+millisUntilFinished/1000); //the title change to the time remaining
-                for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel) {
-                    numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener() {
+
+                for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel)
+                {
+                    numbersDisplayOnScreenTv.setOnClickListener(new View.OnClickListener()
+                    {
                         @Override
                         public void onClick(View v) {
-                            numbersDisplayOnScreenTv.setTextSize(50);
-                            numbersDisplayOnScreenTv.setTextColor(Color.RED);
-                            Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
-                            User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
-                            wrongAnswerMp.start();
-                            if (User.getInstance().getmCuntFalseChoosNum() == 3) {
-                                // if the user losing 3 time set to 0
-                                Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
-                                gameIsFinished(); //function of gameover that open dialog for saving details
-                                countDownTimer.cancel(); // cancel the timer when 3 faults
-                            } else { //falseCount < 3
-                                countDownTimer.cancel(); //cancel the timer
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        finish();
-                                    }
-                                },1500); //back the pre activity for find new number
+                            if (!isAlreadtTouchTv)
+                            {
+                                numbersDisplayOnScreenTv.setTextSize(50);
+                                numbersDisplayOnScreenTv.setTextColor(Color.RED);
+                                Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
+                                User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
+                                wrongAnswerMp.start();
+                                if (User.getInstance().getmCuntFalseChoosNum() == 3) {
+                                    // if the user losing 3 time set to 0
+                                    Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
+                                    gameIsFinished(); //function of gameover that open dialog for saving details
+                                    countDownTimer.cancel(); // cancel the timer when 3 faults
+                                } else { //falseCount < 3
+                                    countDownTimer.cancel(); //cancel the timer
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            finish();
+                                        }
+                                    },1500); //back the pre activity for find new number
+                                }
+                                isAlreadtTouchTv = true;
                             }
                         }
                     });
@@ -105,23 +113,27 @@ public class GameActivity extends Activity {
                 winningNumberTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) { //on click the right number
-                        winningNumberTv.setTextSize(50);
-                        winningNumberTv.setTextColor(Color.GREEN);
-                        User.getInstance().addToScore(1);//score++ and set it in the User Class
-                        correctAnswerMp.start();
-                        SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
-                        if ((User.getInstance().getmScore() == 10)) { //finished in success
-                            Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ theLevel + "!", Toast.LENGTH_LONG).show();
-                            countDownTimer.cancel();
-                            gameIsFinished(); //function of open dialog for saving details
-                        } else { //scoreCont < 10;
-                            countDownTimer.cancel(); //cancel the timer
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    finish();
-                                }
-                            },1500); //back the pre activity for find new number
+                        if (!isAlreadtTouchTv)
+                        {
+                            winningNumberTv.setTextSize(50);
+                            winningNumberTv.setTextColor(Color.GREEN);
+                            User.getInstance().addToScore(1);//score++ and set it in the User Class
+                            correctAnswerMp.start();
+                            SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
+                            if ((User.getInstance().getmScore() == 10)) { //finished in success
+                                Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ theLevel + "!", Toast.LENGTH_LONG).show();
+                                countDownTimer.cancel();
+                                gameIsFinished(); //function of open dialog for saving details
+                            } else { //scoreCont < 10;
+                                countDownTimer.cancel(); //cancel the timer
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                },1500); //back the pre activity for find new number
+                            }
+                            isAlreadtTouchTv = true;
                         }
                     }
                 });
