@@ -16,9 +16,14 @@ public class RecordsActivity extends Activity {
 
     private ListView mUserListView;
     private UserAdapter userListAdapter;
+
     private ArrayList<UserRecords> usersListRecords = new ArrayList<UserRecords>();
+
     private UserRecords userRecords;
 
+    public ArrayList<UserRecords> getUsersListRecords() {
+        return usersListRecords;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

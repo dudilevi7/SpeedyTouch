@@ -16,11 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class MenuActivity extends Activity {
-    Button numBtn;
-    Button fcBtn;
-    Button countriesBtn;
-    Button randBtn;
-
+    private Button numBtn;
+    private Button fcBtn;
+    private Button countriesBtn;
+    private Button randBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
