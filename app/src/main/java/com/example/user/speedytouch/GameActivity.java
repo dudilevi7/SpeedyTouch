@@ -1,5 +1,6 @@
 package com.example.user.speedytouch;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 
 import android.app.Dialog;
@@ -11,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ public class GameActivity extends Activity {
     private CountDownTimer countDownTimer; //timer for every level
     private MediaPlayer correctAnswerMp;
     private MediaPlayer wrongAnswerMp;
+    private MediaPlayer finishedLevelMp;
     private boolean isAlreadtTouchTv = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class GameActivity extends Activity {
 
         wrongAnswerMp = MediaPlayer.create(this,R.raw.wah_wah_wah_fail_sound_effect);
         correctAnswerMp = MediaPlayer.create(this,R.raw.correct_answer_sound_effect);
+        finishedLevelMp = MediaPlayer.create(this,R.raw.finishedlevel);
 
         winningNumberTv = new TextView(this); //Winning number text view
         catchItTv = findViewById(R.id.catchItTv); //the title of the activity
@@ -84,11 +88,14 @@ public class GameActivity extends Activity {
                         public void onClick(View v) {
                             if (!isAlreadtTouchTv)
                             {
-                                numbersDisplayOnScreenTv.setTextSize(50);
+                                ObjectAnimator animator = ObjectAnimator.ofFloat(numbersDisplayOnScreenTv,"ScaleX",2.5f).setDuration(1000);
+                                ObjectAnimator animator1 = ObjectAnimator.ofFloat(numbersDisplayOnScreenTv,"ScaleY",2.5f).setDuration(1000);
                                 numbersDisplayOnScreenTv.setTextColor(Color.RED);
+                                wrongAnswerMp.start();
+                                animator.start();
+                                animator1.start();
                                 Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
                                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
-                                wrongAnswerMp.start();
                                 if (User.getInstance().getmCuntFalseChoosNum() == 3) {
                                     // if the user losing 3 time set to 0
                                     Toast.makeText(GameActivity.this, getString(R.string.gameover), Toast.LENGTH_SHORT).show();
@@ -101,7 +108,7 @@ public class GameActivity extends Activity {
                                         public void run() {
                                             finish();
                                         }
-                                    },1500); //back the pre activity for find new number
+                                    },2500); //back the pre activity for find new number
                                 }
                                 isAlreadtTouchTv = true;
                             }
@@ -115,12 +122,17 @@ public class GameActivity extends Activity {
                     public void onClick(View v) { //on click the right number
                         if (!isAlreadtTouchTv)
                         {
-                            winningNumberTv.setTextSize(50);
+                            ObjectAnimator animator = ObjectAnimator.ofFloat(winningNumberTv,"ScaleX",2.5f).setDuration(1000);
+                            ObjectAnimator animator1 = ObjectAnimator.ofFloat(winningNumberTv,"ScaleY",2.5f).setDuration(1000);
                             winningNumberTv.setTextColor(Color.GREEN);
-                            User.getInstance().addToScore(1);//score++ and set it in the User Class
                             correctAnswerMp.start();
+                            animator.start();
+                            animator1.start();
+                            User.getInstance().addToScore(GameMode.getInstance().getM_level());//score++ and set it in the User Class
                             SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                             if ((User.getInstance().getmScore() == 10)) { //finished in success
+                                correctAnswerMp.stop();
+                                finishedLevelMp.start();
                                 Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ theLevel + "!", Toast.LENGTH_LONG).show();
                                 countDownTimer.cancel();
                                 gameIsFinished(); //function of open dialog for saving details
@@ -142,6 +154,7 @@ public class GameActivity extends Activity {
 
             @Override
             public void onFinish() { //On finish the timer!!!
+                isAlreadtTouchTv = true;
                 wrongAnswerMp.start();
                 Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
@@ -155,7 +168,7 @@ public class GameActivity extends Activity {
                         public void run() {
                             finish();
                         }
-                    },1500); //when falseCount<3 -> back to pre activity for find new number
+                    },2500); //when falseCount<3 -> back to pre activity for find new number
             }
         }.start();
     }
@@ -218,6 +231,7 @@ public class GameActivity extends Activity {
         } else numbersPlace(numbersTv,xWinningTv,yWinningTv);
     }
     public void onBackPressed() {
+        countDownTimer.cancel();
         User.getInstance().resetUser();
         Intent intent = new Intent(GameActivity.this,MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
