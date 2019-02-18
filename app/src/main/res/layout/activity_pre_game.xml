@@ -23,9 +23,10 @@
             android:layout_width="150dp"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
-            android:textSize="50sp"
+            android:textSize="60sp"
             android:textColor="@color/White"
-            android:background="@drawable/btns_shape"/>
+            android:background="@drawable/number_shape"
+            />
 
         <Button
             android:layout_width="180dp"

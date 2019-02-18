@@ -2,10 +2,6 @@
 <resources>
     <string name="app_name">SpeedyTouch</string>
     <string name="choose_your_level">בחר את הרמה של המשחק</string>
-    <string name="numbers">מספרים</string>
-    <string name="F_logos">סמלים של קבוצות כדורגל</string>
-    <string name="countries_flags">דגלים ומדינות</string>
-    <string name="random">רנדומאלי</string>
     <string name="choose_your_game">בחר את סוג המשחק</string>
     <string name="Level_1">קל</string>
     <string name="Level_2">בינוני</string>
@@ -27,4 +23,5 @@
     <string name="username_lbl">:שם משתמש</string>
     <string name="user_score_lbl">:ניקוד משתמש</string>
     <string name="app_leaderboard">טבלת שיאים</string>
+    <string name="startGame">התחל משחק</string>
 </resources>
