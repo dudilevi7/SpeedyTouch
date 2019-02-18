@@ -65,4 +65,11 @@ public class LevelActivity extends Activity {
         animator1.start();
         animator.start();
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LevelActivity.this,MenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
 }

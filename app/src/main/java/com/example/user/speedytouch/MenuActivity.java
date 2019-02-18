@@ -5,8 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +17,10 @@ import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 public class MenuActivity extends Activity {
-    Button numBtn;
+    CircularProgressButton numBtn;
     Button leadboardBtn;
     Button countriesBtn;
     Button randBtn;
@@ -41,19 +45,29 @@ public class MenuActivity extends Activity {
         numBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //case for numbers
-                ObjectAnimator animator = ObjectAnimator.ofFloat(numBtn,"rotation", 360).setDuration(750);
-                animator.start();
-                animator.addListener(new AnimatorListenerAdapter() {
+                @SuppressLint("StaticFieldLeak") AsyncTask<String, String, String> demoLogin = new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... params) {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return "done";
+                    }
 
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                      //  intent.putExtra("name","numbers");
-
-                        startActivity(intent);
+                    protected void onPostExecute(String s) {
+                        if (s.equals("done"))
+                        {
+                            Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
-                });
-
+                };
+                numBtn.startAnimation();
+                demoLogin.execute();
             }
         });
         leadboardBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +80,6 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,RecordsActivity.class);
-                     //   intent.putExtra("name","fc");
 
                         startActivity(intent);
                     }
@@ -83,7 +96,6 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                     //   intent.putExtra("name","countries");
                         startActivity(intent);
                     }
                 });
@@ -99,7 +111,6 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,LevelActivity.class);
-                  //      intent.putExtra("name","random");
                         startActivity(intent);
                     }
                 });
