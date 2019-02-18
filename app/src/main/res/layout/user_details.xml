@@ -9,6 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginStart="50dp"
+        android:background="@color/Black"
+        android:textColor="@color/White"
         android:text="@string/username_lbl" />
 
     <TextView
@@ -26,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
         android:layout_marginTop="20dp"
+        android:background="@color/Black"
+        android:textColor="@color/White"
         android:text="@string/user_score_lbl" />
 
     <TextView

@@ -14,6 +14,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.view.Menu;
 
 public class MenuActivity extends Activity {
     Button numBtn;
@@ -21,6 +22,11 @@ public class MenuActivity extends Activity {
     Button countriesBtn;
     Button randBtn;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

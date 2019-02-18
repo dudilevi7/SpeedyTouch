@@ -7,6 +7,6 @@
     <color name="Gray">#b6b6b6</color>
     <color name="lightGray">#e2e2e2</color>
     <color name="darkGray">#8e8e8e</color>
-    <color name= "darkBlue">#002183</color>
-    <color name= "lightBlue">#0038df</color>
+    <color name= "blue">#004ce8</color>
+    <color name= "YellowBoca">#ff950d</color>
 </resources>

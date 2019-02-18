@@ -2,20 +2,16 @@
 <RelativeLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/speedyback2"
+    android:background="@drawable/speedybackground"
        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+
 
         <ImageView
+            android:layout_marginTop="175dp"
             android:id="@+id/logo"
             android:layout_width="400dp"
             android:layout_height="170dp"
             android:src="@drawable/speedytouchlogo"/>
 
-    </RelativeLayout>
 </RelativeLayout>

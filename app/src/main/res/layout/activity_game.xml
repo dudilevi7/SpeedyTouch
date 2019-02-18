@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/speedyback2"
     android:id="@+id/gameLayoutLl">
     <TextView
         android:layout_width="wrap_content"
