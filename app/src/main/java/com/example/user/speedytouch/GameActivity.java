@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 
 import android.app.Dialog;
+import android.app.slice.Slice;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -26,6 +27,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
+
 public class GameActivity extends Activity {
     private TextView winningNumberTv,catchItTv;
     private int mHeightOfScreen, mWidthOfScreen,theWinningNumber,whatIsTheLevel;
@@ -35,6 +40,8 @@ public class GameActivity extends Activity {
     private MediaPlayer wrongAnswerMp;
     private MediaPlayer finishedLevelMp;
     private boolean isAlreadtTouchTv = false;
+    private KonfettiView viewKonfetti;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class GameActivity extends Activity {
         wrongAnswerMp = MediaPlayer.create(this,R.raw.wah_wah_wah_fail_sound_effect);
         correctAnswerMp = MediaPlayer.create(this,R.raw.correct_answer_sound_effect);
         finishedLevelMp = MediaPlayer.create(this,R.raw.finishedlevel);
+        viewKonfetti = findViewById(R.id.viewKonfetti);
 
         winningNumberTv = new TextView(this); //Winning number text view
         catchItTv = findViewById(R.id.catchItTv); //the title of the activity
@@ -133,6 +141,16 @@ public class GameActivity extends Activity {
                             if ((User.getInstance().getmScore() == 10)) { //finished in success
                                 correctAnswerMp.stop();
                                 finishedLevelMp.start();
+                                viewKonfetti.build()
+                                        .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                                        .setDirection(0.0, 359.0)
+                                        .setSpeed(1f, 5f)
+                                        .setFadeOutEnabled(true)
+                                        .setTimeToLive(2000L)
+                                        .addShapes(Shape.RECT, Shape.CIRCLE)
+                                        .addSizes(new Size(12, 5))
+                                        .setPosition(-50f, viewKonfetti.getWidth() + 50f, -50f, -50f)
+                                        .streamFor(300, 5000L);
                                 Toast.makeText(GameActivity.this, getString(R.string.finished_level) +" "+ theLevel + "!", Toast.LENGTH_LONG).show();
                                 countDownTimer.cancel();
                                 gameIsFinished(); //function of open dialog for saving details

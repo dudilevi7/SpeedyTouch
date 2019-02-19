@@ -16,6 +16,6 @@
         android:id="@+id/okBtn"
         android:layout_gravity="center"
         android:text="@string/Ok_btn"
-        android:background="@drawable/btns_shape"
-        android:textColor="@color/White"/>
+        android:background="@null"
+        android:textColor="@color/Black"/>
 </LinearLayout>

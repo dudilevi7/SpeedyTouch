@@ -32,16 +32,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:spinning_bar_color="@color/White"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:text="@string/startGame"
             android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/White"
-            android:background="@drawable/btns_shape" />
+            android:background="@drawable/btns_shape"
+            app:spinning_bar_color="@color/White"
+            app:spinning_bar_width="3dp" />
+
         <Button
             android:id="@+id/football_btn"
             android:layout_width="match_parent"
@@ -55,20 +56,20 @@
             android:textStyle="bold"
             android:textColor="@color/White"
             android:background="@drawable/btns_shape" />
-        <Button
-            android:id="@+id/countries_btn"
+       <Button
+            android:id="@+id/guide_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:text="EMPTY"
+            android:text="תפריט"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/White"
             android:background="@drawable/btns_shape" />
-        <Button
+        <!--<Button
             android:id="@+id/random_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,7 +81,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/White"
-            android:background="@drawable/btns_shape" />
+            android:background="@drawable/btns_shape" />-->
 
     </RelativeLayout>
 </LinearLayout>

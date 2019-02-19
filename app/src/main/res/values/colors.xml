@@ -2,11 +2,13 @@
 <resources>
     <color name="Gold">#ffb300</color>
     <color name="White">#fff</color>
-    <color name="Black">#000</color>
+    <color name="Black">#f000</color>
     <color name="lightBlack">#282828</color>
     <color name="Gray">#b6b6b6</color>
     <color name="lightGray">#e2e2e2</color>
     <color name="darkGray">#8e8e8e</color>
     <color name= "blue">#004ce8</color>
     <color name= "YellowBoca">#ff950d</color>
+    <color name= "lightRed">#e69e84</color>
+    <color name= "darkBlue">#3c3f58</color>
 </resources>
