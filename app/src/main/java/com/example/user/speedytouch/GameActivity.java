@@ -17,6 +17,8 @@ import android.provider.MediaStore;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,6 +26,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.felipecsl.gifimageview.library.GifImageView;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,7 +49,8 @@ public class GameActivity extends Activity {
     private MediaPlayer finishedLevelMp;
     private boolean isAlreadtTouchTv = false;
     private KonfettiView viewKonfetti;
-
+    private GifImageView gifImageView;
+    private Animation smallToBig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +60,11 @@ public class GameActivity extends Activity {
         correctAnswerMp = MediaPlayer.create(this,R.raw.correct_answer_sound_effect);
         finishedLevelMp = MediaPlayer.create(this,R.raw.finishedlevel);
         viewKonfetti = findViewById(R.id.viewKonfetti);
+
+
+        smallToBig = AnimationUtils.loadAnimation(this,R.anim.small_to_big);
+        gifImageView = findViewById(R.id.ok_gif);
+
 
         winningNumberTv = new TextView(this); //Winning number text view
         catchItTv = findViewById(R.id.catchItTv); //the title of the activity
@@ -130,12 +144,17 @@ public class GameActivity extends Activity {
                     public void onClick(View v) { //on click the right number
                         if (!isAlreadtTouchTv)
                         {
-                            ObjectAnimator animator = ObjectAnimator.ofFloat(winningNumberTv,"ScaleX",2.5f).setDuration(1000);
-                            ObjectAnimator animator1 = ObjectAnimator.ofFloat(winningNumberTv,"ScaleY",2.5f).setDuration(1000);
-                            winningNumberTv.setTextColor(Color.GREEN);
                             correctAnswerMp.start();
-                            animator.start();
-                            animator1.start();
+                            try
+                            {
+                                InputStream inputStream = getAssets().open("ok.gif");
+                                byte[] bytes = IOUtils.toByteArray(inputStream);
+                                gifImageView.setBytes(bytes);
+                                gifImageView.startAnimation(smallToBig);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             User.getInstance().addToScore(GameMode.getInstance().getM_level());//score++ and set it in the User Class
                             SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                             if ((User.getInstance().getmScore() == 10)) { //finished in success
