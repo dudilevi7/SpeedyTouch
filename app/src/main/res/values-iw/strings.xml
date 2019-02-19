@@ -25,4 +25,5 @@
     <string name="app_leaderboard">טבלת שיאים</string>
     <string name="startGame">התחל משחק</string>
     <string name="enteruser">הכנס שם משתמש</string>
+    <string name="instructions">"הוראות "</string>
 </resources>

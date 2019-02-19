@@ -18,14 +18,17 @@ public class GuideActivity extends AppIntro2 {
 
 
         //slide 1
-        addSlide(AppIntroFragment.newInstance("Slide 1","This is the first slide",
-                R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.Gold)));
+        addSlide(AppIntroFragment.newInstance("ברוכים הבאים למשחק Speedy Touch ","המשחק שיגרום לכם לחשוב בזריזות, לחפש אחר המספרים והכי חשוב- שלא יהיו בלבולים. 3 פסילות, עשרות מספרים אז קדימה- רוצו לקרוא את החוקים! ",
+                R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.lightRed)));
         //slide 2
-        addSlide(AppIntroFragment.newInstance("Slide 2","This is the second slide",
+        addSlide(AppIntroFragment.newInstance("במשחק שלוש רמות קושי- ","למתחילים שבינינו מומלץ להתחיל ברמה הקלה- אשר בה תאלצו להתמודד עם מציאת המספר תוך 5 שניות בלבד!",
                 R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.green)));
         //slide 3
-        addSlide(AppIntroFragment.newInstance("Slide 3","This is the third slide",
-                R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.lightRed)));
+        addSlide(AppIntroFragment.newInstance("ולאחר שמצאת 10 מספרים בזמן הנכון והמתאים כדאי שתעבור למתקדמים","ולאלו שצלחו את הרמה הקלה- מחכה הרמה הבינונית שבה נאתגר אתכם עם מספרים נוספים, קשים יותר אבל- אתם אלופים. בשלב זה תוך 4 שניות בלבד תאלצו למצוא את המספר שאבד. ",
+                R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.Gold)));
+        //slide 4
+        addSlide(AppIntroFragment.newInstance("ואם גם פה צברתם 10 מספרים- תשמעו זה כבר באמת מדהים.","רוצו מכאן לרמה הבאה- הקשה מכולן אבל גם האחרונה. מספרים נוספים, מהירים וזריזים שירוצו לכם מול הפנים. 3 שניות בלבד- זה כל מה שיש וכל מה שנותר הוא לרוץ לשחק. בהצלחה!  ",
+                R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.ronelRed)));
         showSkipButton(false);
     }
     @Override
