@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:text="@string/choose_your_level"
         android:textSize="30sp"
+        android:textColor="@color/White"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-condensed"
         android:id="@+id/option_level"

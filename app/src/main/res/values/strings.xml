@@ -23,4 +23,5 @@
     <string name="user_score_lbl">User Score:</string>
     <string name="app_leaderboard">App Leaderboard</string>
     <string name="startGame">Start game</string>
+    <string name="enteruser">Enter username</string>
 </resources>
