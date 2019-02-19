@@ -1,7 +1,9 @@
 package com.example.user.speedytouch;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 import com.github.paolorotolo.appintro.AppIntro2;
@@ -24,20 +26,23 @@ public class GuideActivity extends AppIntro2 {
         //slide 3
         addSlide(AppIntroFragment.newInstance("Slide 3","This is the third slide",
                 R.mipmap.ic_launcher,ContextCompat.getColor(getApplicationContext(),R.color.lightRed)));
-
-
-   /*     // OPTIONAL METHODS
-        // Override bar/separator color.
-        setBarColor(Color.parseColor("#3F51B5"));
-        setSeparatorColor(Color.parseColor("#2196F3"));
-
-        // Hide Skip/Done button.
         showSkipButton(false);
-        setProgressButtonEnabled(false);
+    }
+    @Override
+    public void onBackPressed() {
+        finishReadingGuide();
+    }
 
-        // Turn vibration on and set intensity.
-        // NOTE: you will probably need to ask VIBRATE permission in Manifest.
-        setVibrate(true);
-        setVibrateIntensity(30);*/
+    @Override
+    public void onDonePressed(Fragment currentFragment) {
+        super.onDonePressed(currentFragment);
+        finishReadingGuide();
+    }
+    public void finishReadingGuide()
+    {
+        Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }
