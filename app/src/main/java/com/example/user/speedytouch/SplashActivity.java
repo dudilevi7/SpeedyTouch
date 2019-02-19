@@ -10,9 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class SplashActivity extends Activity {
-    int SPLASH_TIME_OUT = 1500;
-    ImageView imageLogo;
-    Animation smallToBig;
+    private int SPLASH_TIME_OUT = 1500;
+    private ImageView imageLogo;
+    private Animation smallToBig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
