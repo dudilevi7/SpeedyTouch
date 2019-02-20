@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.io.IOUtils;
+//import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,7 +46,7 @@ public class GameActivity extends Activity {
     private MediaPlayer finishedLevelMp;
     private boolean isAlreadtTouchTv = false;
     private KonfettiView viewKonfetti;
-    private ImageView LikeAndDisLikeImageView;
+    private ImageView likeAndDisLikeImageView;
     private Animation smallToBig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,8 @@ public class GameActivity extends Activity {
 
 
         smallToBig = AnimationUtils.loadAnimation(this,R.anim.small_to_big);
-        LikeAndDisLikeImageView = findViewById(R.id.LikeAndDisLikeImageView);
-        LikeAndDisLikeImageView.setVisibility(View.INVISIBLE);
+        likeAndDisLikeImageView = findViewById(R.id.LikeAndDisLikeImageView);
+        likeAndDisLikeImageView.setVisibility(View.INVISIBLE);
 
         winningNumberTv = new TextView(this); //Winning number text view
         winningNumberTv.setTextColor(getResources().getColor(R.color.White));
@@ -107,11 +108,16 @@ public class GameActivity extends Activity {
                         public void onClick(View v) {
                             if (!isAlreadtTouchTv)
                             {
+                                ObjectAnimator animator = ObjectAnimator.ofFloat(winningNumberTv,"ScaleX",2.5f).setDuration(1000);
+                                ObjectAnimator animator1 = ObjectAnimator.ofFloat(winningNumberTv,"ScaleY",2.5f).setDuration(1000);
+                                winningNumberTv.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.RedPink));
                                 wrongAnswerMp.start();
-                                LikeAndDisLikeImageView.setImageResource(R.drawable.dislike);
-                                LikeAndDisLikeImageView.setVisibility(View.VISIBLE);
-                                LikeAndDisLikeImageView.bringToFront();
-                                LikeAndDisLikeImageView.startAnimation(smallToBig);
+                                animator.start();
+                                animator1.start();
+                                likeAndDisLikeImageView.setImageResource(R.drawable.dislike);
+                                likeAndDisLikeImageView.setVisibility(View.VISIBLE);
+                                likeAndDisLikeImageView.bringToFront();
+                                likeAndDisLikeImageView.startAnimation(smallToBig);
 
                                 Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
                                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
@@ -141,11 +147,16 @@ public class GameActivity extends Activity {
                     public void onClick(View v) { //on click the right number
                         if (!isAlreadtTouchTv)
                         {
+                            ObjectAnimator animator = ObjectAnimator.ofFloat(winningNumberTv,"ScaleX",2.5f).setDuration(1000);
+                            ObjectAnimator animator1 = ObjectAnimator.ofFloat(winningNumberTv,"ScaleY",2.5f).setDuration(1000);
+                            winningNumberTv.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.Green));
                             correctAnswerMp.start();
-                            LikeAndDisLikeImageView.setImageResource(R.drawable.success);
-                            LikeAndDisLikeImageView.setVisibility(View.VISIBLE);
-                            LikeAndDisLikeImageView.bringToFront();
-                            LikeAndDisLikeImageView.startAnimation(smallToBig);
+                            animator.start();
+                            animator1.start();
+                            likeAndDisLikeImageView.setImageResource(R.drawable.success);
+                            likeAndDisLikeImageView.setVisibility(View.VISIBLE);
+                            likeAndDisLikeImageView.bringToFront();
+                            likeAndDisLikeImageView.startAnimation(smallToBig);
 
                             User.getInstance().addToScore(GameMode.getInstance().getM_level());//score++ and set it in the User Class
                             SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
@@ -186,14 +197,14 @@ public class GameActivity extends Activity {
                 isAlreadtTouchTv = true;
                 ObjectAnimator animator = ObjectAnimator.ofFloat(winningNumberTv,"ScaleX",2.5f).setDuration(1000);
                 ObjectAnimator animator1 = ObjectAnimator.ofFloat(winningNumberTv,"ScaleY",2.5f).setDuration(1000);
-                winningNumberTv.setTextColor(Color.RED);
+                winningNumberTv.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.RedPink));
                 wrongAnswerMp.start();
                 animator.start();
                 animator1.start();
-                LikeAndDisLikeImageView.setImageResource(R.drawable.dislike);
-                LikeAndDisLikeImageView.setVisibility(View.VISIBLE);
-                LikeAndDisLikeImageView.bringToFront();
-                LikeAndDisLikeImageView.startAnimation(smallToBig);
+                likeAndDisLikeImageView.setImageResource(R.drawable.dislike);
+                likeAndDisLikeImageView.setVisibility(View.VISIBLE);
+                likeAndDisLikeImageView.bringToFront();
+                likeAndDisLikeImageView.startAnimation(smallToBig);
 
                 Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
