@@ -26,4 +26,12 @@
     <string name="startGame">התחל משחק</string>
     <string name="enteruser">הכנס שם משתמש</string>
     <string name="instructions">"הוראות "</string>
+    <string name="title_1_guide">ברוכים הבאים למשחק Speedy Touch</string>
+    <string name="description_2_guide">למתחילים שבינינו מומלץ להתחיל ברמה הקלה- אשר בה תאלצו להתמודד עם מציאת המספר תוך 5 שניות בלבד</string>
+    <string name="description_3_guide">ולאלו שצלחו את הרמה הקלה- מחכה הרמה הבינונית שבה נאתגר אתכם עם מספרים נוספים, קשים יותר אבל- אתם אלופים. בשלב זה תוך 4 שניות בלבד תאלצו למצוא את המספר שאבד</string>
+    <string name="description_4_guide">רוצו מכאן לרמה הבאה- הקשה מכולן אבל גם האחרונה. מספרים נוספים, מהירים וזריזים שירוצו לכם מול הפנים. 3 שניות בלבד- זה כל מה שיש וכל מה שנותר הוא לרוץ לשחק. בהצלחה</string>
+    <string name="title_4_guide">ואם גם פה מצאתם 10 מספרים תשמעו זה כבר באמת מדהים!</string>
+    <string name="title_2_guide">במשחק שלוש רמות קושי</string>
+    <string name="title_3_guide">ולאחר שמצאת 10 מספרים בזמן הנכון והמתאים כדאי שתעבור למתקדמים</string>
+    <string name="description_1_guide">המשחק שיגרום לכם לחשוב בזריזות, לחפש אחר המספרים והכי חשוב- שלא יהיו בלבולים. 3 פסילות, עשרות מספרים אז קדימה- רוצו לקרוא את החוקים!</string>
 </resources>

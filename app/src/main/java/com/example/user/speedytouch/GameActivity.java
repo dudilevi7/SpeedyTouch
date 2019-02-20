@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 
 import android.app.Dialog;
-import android.app.slice.Slice;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,7 +12,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +19,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.felipecsl.gifimageview.library.GifImageView;
 
 import org.apache.commons.io.IOUtils;
 
@@ -49,7 +45,7 @@ public class GameActivity extends Activity {
     private MediaPlayer finishedLevelMp;
     private boolean isAlreadtTouchTv = false;
     private KonfettiView viewKonfetti;
-    private GifImageView gifImageView;
+    private ImageView LikeAndDisLikeImageView;
     private Animation smallToBig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +59,11 @@ public class GameActivity extends Activity {
 
 
         smallToBig = AnimationUtils.loadAnimation(this,R.anim.small_to_big);
-        gifImageView = findViewById(R.id.ok_gif);
-
+        LikeAndDisLikeImageView = findViewById(R.id.LikeAndDisLikeImageView);
+        LikeAndDisLikeImageView.setVisibility(View.INVISIBLE);
 
         winningNumberTv = new TextView(this); //Winning number text view
+        winningNumberTv.setTextColor(getResources().getColor(R.color.White));
         catchItTv = findViewById(R.id.catchItTv); //the title of the activity
 
 
@@ -110,12 +107,12 @@ public class GameActivity extends Activity {
                         public void onClick(View v) {
                             if (!isAlreadtTouchTv)
                             {
-                                ObjectAnimator animator = ObjectAnimator.ofFloat(numbersDisplayOnScreenTv,"ScaleX",2.5f).setDuration(1000);
-                                ObjectAnimator animator1 = ObjectAnimator.ofFloat(numbersDisplayOnScreenTv,"ScaleY",2.5f).setDuration(1000);
-                                numbersDisplayOnScreenTv.setTextColor(Color.RED);
                                 wrongAnswerMp.start();
-                                animator.start();
-                                animator1.start();
+                                LikeAndDisLikeImageView.setImageResource(R.drawable.dislike);
+                                LikeAndDisLikeImageView.setVisibility(View.VISIBLE);
+                                LikeAndDisLikeImageView.bringToFront();
+                                LikeAndDisLikeImageView.startAnimation(smallToBig);
+
                                 Toast.makeText(GameActivity.this, getString(R.string.wrong), Toast.LENGTH_SHORT).show();
                                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
                                 if (User.getInstance().getmCuntFalseChoosNum() == 3) {
@@ -145,16 +142,11 @@ public class GameActivity extends Activity {
                         if (!isAlreadtTouchTv)
                         {
                             correctAnswerMp.start();
-                            try
-                            {
-                                InputStream inputStream = getAssets().open("ok.gif");
-                                byte[] bytes = IOUtils.toByteArray(inputStream);
-                                gifImageView.setBytes(bytes);
-                                gifImageView.startAnimation(smallToBig);
+                            LikeAndDisLikeImageView.setImageResource(R.drawable.success);
+                            LikeAndDisLikeImageView.setVisibility(View.VISIBLE);
+                            LikeAndDisLikeImageView.bringToFront();
+                            LikeAndDisLikeImageView.startAnimation(smallToBig);
 
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                             User.getInstance().addToScore(GameMode.getInstance().getM_level());//score++ and set it in the User Class
                             SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
                             if ((User.getInstance().getmScore() == 10)) { //finished in success
@@ -192,7 +184,17 @@ public class GameActivity extends Activity {
             @Override
             public void onFinish() { //On finish the timer!!!
                 isAlreadtTouchTv = true;
+                ObjectAnimator animator = ObjectAnimator.ofFloat(winningNumberTv,"ScaleX",2.5f).setDuration(1000);
+                ObjectAnimator animator1 = ObjectAnimator.ofFloat(winningNumberTv,"ScaleY",2.5f).setDuration(1000);
+                winningNumberTv.setTextColor(Color.RED);
                 wrongAnswerMp.start();
+                animator.start();
+                animator1.start();
+                LikeAndDisLikeImageView.setImageResource(R.drawable.dislike);
+                LikeAndDisLikeImageView.setVisibility(View.VISIBLE);
+                LikeAndDisLikeImageView.bringToFront();
+                LikeAndDisLikeImageView.startAnimation(smallToBig);
+
                 Toast.makeText(getApplicationContext(),getString(R.string.time_is_over),Toast.LENGTH_LONG).show(); //Msg : "time is over +1 fault"
                 User.getInstance().addOneToCuntFalseChoosNum(); //falseCount++
                 if (User.getInstance().getmCuntFalseChoosNum() == 3) {
@@ -244,6 +246,7 @@ public class GameActivity extends Activity {
                 numbersTv.setText("" + i);
                 numbersTv.setTextSize(27);
                 numbersTv.setBackgroundColor(Color.TRANSPARENT);
+                numbersTv.setTextColor(getResources().getColor(R.color.White));
                 listNumbersOfTheLevel.add(numbersTv);
             }
         }

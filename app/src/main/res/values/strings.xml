@@ -25,4 +25,12 @@
     <string name="startGame">Start game</string>
     <string name="enteruser">Enter username</string>
     <string name="instructions">Instructions</string>
+    <string name="title_1_guide">" Welcom To Speedy Touch"</string>
+    <string name="description_2_guide">Beginners should begin at the easy level - where you will have to deal with finding the number in just 5 seconds</string>
+    <string name="description_3_guide">Those who have achieved the easy level – the next challenge is the mediocre level, there we challenge you with more numbers, but harder this time don\'t you worry cause you are a champions. At this point in just 4 seconds you will have to find the lost number</string>
+    <string name="description_4_guide">"Run from here to the next level - the hardest of all but the last. Other numbers, quick and swift  that run in front of you. Just 3 seconds - that's all you get and all is left is run and play. Good Luck! "</string>
+    <string name="title_4_guide">And if you\'ve found 10 numbers here, you\'ll listen it\'s really amazing!</string>
+    <string name="title_3_guide">"The game has three difficulty levels "</string>
+    <string name="title_2_guide">And after you find 10 numbers at the right time, you should go to the advanced level</string>
+    <string name="description_1_guide">The game that will make you think quickly, look for the numbers and most importantly - that there will be no confusion. 3 disqualifications, dozens of numbers So go ahead - run to read the rules</string>
 </resources>
