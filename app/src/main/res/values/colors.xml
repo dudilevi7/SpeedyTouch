@@ -4,8 +4,10 @@
     <color name="White">#fff</color>
     <color name="Black">#f000</color>
     <color name="lightBlack">#282828</color>
+    <color name="Silver">#A7A7AD</color>
+    <color name="Bronze">#824A02</color>
     <color name= "RedPink">#cc2b36</color>
-    <color name="Blue">#02578b</color>
+    <color name= "Blue">#02578b</color>
     <color name= "lightRed">#e69e84</color>
     <color name= "darkBlue">#3c3f58</color>
     <color name= "ronelRed">#fdda2e2e</color>

@@ -45,12 +45,14 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="02578b" />
                                       <entry key="backgroundImage" value="C:\Users\renan\Downloads\icon\speedybackground.png" />
-                                      <entry key="backgroundLayerName" value="SpeedyTouch_Icon2_background" />
-                                      <entry key="foregroundImage" value="C:\Users\renan\Downloads\icon\speedytouchlogo.png" />
-                                      <entry key="foregroundLayerName" value="SpeedyTouch_Icon2_foreground" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="backgroundLayerName" value="speedytouch_icon2_background" />
+                                      <entry key="foregroundImage" value="C:\Users\USER\Desktop\speedytouchlogo.png" />
+                                      <entry key="foregroundLayerName" value="speedytouch_icon2_foreground" />
                                       <entry key="outputName" value="speedy_touch_icon2" />
+                                      <entry key="webIconShape" value="CIRCLE" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -64,6 +66,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

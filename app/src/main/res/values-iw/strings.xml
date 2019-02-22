@@ -20,8 +20,7 @@
     <string name="time_is_over">הזמן נגמר!צברת פסילה!</string>
     <string name="catchIt">מצא/י את המספר ...</string>
     <string name="timeEndsIn">הזמן נגמר בעוד...</string>
-    <string name="username_lbl">:שם משתמש</string>
-    <string name="user_score_lbl">:ניקוד משתמש</string>
+    <string name="user_score_lbl">ניקוד משתמש :</string>
     <string name="app_leaderboard">טבלת שיאים</string>
     <string name="startGame">התחל משחק</string>
     <string name="enteruser">הכנס שם משתמש</string>
@@ -34,4 +33,5 @@
     <string name="title_2_guide">במשחק שלוש רמות קושי</string>
     <string name="title_3_guide">ולאחר שמצאת 10 מספרים בזמן הנכון והמתאים כדאי שתעבור למתקדמים</string>
     <string name="description_1_guide">המשחק שיגרום לכם לחשוב בזריזות, לחפש אחר המספרים והכי חשוב- שלא יהיו בלבולים. 3 פסילות, עשרות מספרים אז קדימה- רוצו לקרוא את החוקים!</string>
+    <string name="username_lbl">שם משתמש :</string>
 </resources>

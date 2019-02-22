@@ -5,20 +5,47 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RecordsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/Blue">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_leaderboard"
+        android:textColor="@color/White"
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:id="@+id/leadboardTv"/>
+    <TextView
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/leadboardTv"
+        android:gravity="center"
+        android:layout_marginStart="17dp"
+        android:background="@drawable/number_shape"
+        android:textColor="@color/White"
+        android:textStyle="bold"
+        android:text="@string/username_lbl" />
+    <TextView
+        android:id="@+id/userLeadboard"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_below="@+id/leadboardTv"
+        android:background="@drawable/number_shape"
+        android:textColor="@color/White"
+        android:textStyle="bold"
+        android:text="@string/user_score_lbl" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/userLeadboard"
         android:id="@+id/userListView"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="5dp"/>
 
 </RelativeLayout>

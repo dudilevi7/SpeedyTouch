@@ -39,12 +39,14 @@ public class RecordsActivity extends Activity {
         SharedPreferences sp = getSharedPreferences("PREFS",MODE_PRIVATE);
 
         Map<String,?> keys = sp.getAll();
-
         for(Map.Entry<String,?> entry : keys.entrySet()){
 //            userRecords = new UserRecords(entry.getKey(),entry.getValue().toString());
-            usersListRecords.add(new UserRecords(entry.getKey(),entry.getValue().toString()));
+            usersListRecords.add(new UserRecords(entry.getKey(),entry.getValue().toString(),0));
         }
         Collections.sort(usersListRecords,userRecords.userRecordsComparator);
+        for (int k = 0; k<usersListRecords.size();k++){
+            usersListRecords.get(k).setmPlaceUR(k+1);
+        }
         userListAdapter = new UserAdapter(usersListRecords,this);
         mUserListView.setAdapter(userListAdapter);
         userListAdapter.notifyDataSetChanged();

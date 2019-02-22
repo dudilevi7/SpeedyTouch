@@ -7,11 +7,13 @@ public class UserRecords
 {
     private String mNameUR;
     private String  mScoreUR;
+    private int mPlaceUR;
 
 
-    public UserRecords(String mNameUR, String mScoreUR) {
+    public UserRecords(String mNameUR, String mScoreUR , int mPlaceUR) {
         this.mNameUR = mNameUR;
         this.mScoreUR = mScoreUR;
+        this.mPlaceUR = mPlaceUR;
     }
 
     public String getmNameUR() {
@@ -22,6 +24,8 @@ public class UserRecords
         return mScoreUR;
     }
 
+    public int getmPlaceUR(){ return mPlaceUR;}
+
     public void setmNameUR(String mNameUR) {
         this.mNameUR = mNameUR;
 
@@ -29,6 +33,10 @@ public class UserRecords
 
     public void setmScoreUR(String mScoreUR) {
         this.mScoreUR = mScoreUR;
+    }
+
+    public void setmPlaceUR(int mPlaceUR) {
+        this.mPlaceUR = mPlaceUR;
     }
 
     public static Comparator<UserRecords> userRecordsComparator = new Comparator<UserRecords>()

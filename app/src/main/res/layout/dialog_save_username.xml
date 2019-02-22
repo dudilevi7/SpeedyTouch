@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:hint="@string/enteruser" />
     <Button
         android:layout_width="wrap_content"
@@ -16,6 +17,8 @@
         android:id="@+id/okBtn"
         android:layout_gravity="center"
         android:text="@string/Ok_btn"
-        android:background="@null"
-        android:textColor="@color/Black"/>
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:background="@drawable/number_shape"
+        android:textColor="@color/White"/>
 </LinearLayout>

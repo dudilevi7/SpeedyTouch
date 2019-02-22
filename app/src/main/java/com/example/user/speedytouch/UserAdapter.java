@@ -1,6 +1,8 @@
 package com.example.user.speedytouch;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ public class UserAdapter extends BaseAdapter {
     private Context m_Context;
     private TextView usernameTv;
     private TextView scoreTv;
+    private TextView placeTv;
+    private int place;
 
     public UserAdapter(List<UserRecords> usersRecordsList, Context m_Context) {
         this.mUsersRecordsList = usersRecordsList;
@@ -39,6 +43,7 @@ public class UserAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+
         View row = convertView;
         if(row == null){
             LayoutInflater inflater = (LayoutInflater)m_Context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,16 +51,24 @@ public class UserAdapter extends BaseAdapter {
         }
 
         UserRecords userRecords= mUsersRecordsList.get(position);
+        place = userRecords.getmPlaceUR();
 
         usernameTv = row.findViewById(R.id.usernameTvUd);
         scoreTv =  row.findViewById(R.id.userScoreTv);
+        placeTv = row.findViewById(R.id.placeTv);
 
-
-
-        usernameTv .setText(userRecords.getmNameUR());
+        placeTv.setText(""+place);
+        usernameTv.setText(userRecords.getmNameUR());
         scoreTv.setText(userRecords.getmScoreUR());
-
-
+        if (place==1)
+            row.setBackgroundColor(ContextCompat.getColor(m_Context,R.color.Gold));
+        if (place==2)
+            row.setBackgroundColor(ContextCompat.getColor(m_Context,R.color.Silver));
+        if (place==3)
+            row.setBackgroundColor(ContextCompat.getColor(m_Context,R.color.Bronze));
+        if (place!=1 && place!=2 && place!=3){
+            row.setBackgroundColor(ContextCompat.getColor(m_Context,R.color.Blue));
+        }
 
         return row;
     }
