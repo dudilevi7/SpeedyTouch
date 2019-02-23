@@ -45,21 +45,21 @@ public class GuideActivity extends AppIntro2 {
         SliderPage sliderPage2 = new SliderPage();
         sliderPage2.setTitle(getResources().getString(R.string.title_2_guide));
         sliderPage2.setDescription(getResources().getString(R.string.description_2_guide));
-        //sliderPage1.setImageDrawable(image);
+        sliderPage2.setImageDrawable(R.drawable.greenemoji);
         sliderPage2.setBgColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         SliderPage sliderPage3 = new SliderPage();
         sliderPage3.setTitle(getResources().getString(R.string.title_3_guide));
         sliderPage3.setDescription(getResources().getString(R.string.description_3_guide));
-        //sliderPage1.setImageDrawable(image);
+        sliderPage3.setImageDrawable(R.drawable.yellowemoji);
         sliderPage3.setBgColor(ContextCompat.getColor(getApplicationContext(),R.color.Gold));
         addSlide(AppIntroFragment.newInstance(sliderPage3));
 
         SliderPage sliderPage4 = new SliderPage();
         sliderPage4.setTitle(getResources().getString(R.string.title_4_guide));
         sliderPage4.setDescription(getResources().getString(R.string.description_4_guide));
-        //sliderPage1.setImageDrawable(image);
+        sliderPage4.setImageDrawable(R.drawable.redemoji);
         sliderPage4.setBgColor(ContextCompat.getColor(getApplicationContext(),R.color.ronelRed));
         addSlide(AppIntroFragment.newInstance(sliderPage4));
 
