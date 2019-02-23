@@ -56,6 +56,7 @@ public class GameActivity extends Activity {
         wrongAnswerMp = MediaPlayer.create(this,R.raw.wah_wah_wah_fail_sound_effect);
         correctAnswerMp = MediaPlayer.create(this,R.raw.correct_answer_sound_effect);
         finishedLevelMp = MediaPlayer.create(this,R.raw.finishedlevel);
+
         viewKonfetti = findViewById(R.id.viewKonfetti);
 
 
@@ -97,8 +98,10 @@ public class GameActivity extends Activity {
         countDownTimer = new CountDownTimer(GameMode.getInstance().getMillisByLevel(),1000) { //7 seconds for each screen in level 1
             @Override
             public void onTick(long millisUntilFinished) {
-                if (millisUntilFinished<GameMode.getInstance().getMillisByLevel()-1000)
-                    catchItTv.setText(getString(R.string.timeEndsIn)+" "+millisUntilFinished/1000); //the title change to the time remaining
+
+                if (millisUntilFinished<GameMode.getInstance().getMillisByLevel()-1000) {
+                    catchItTv.setText(getString(R.string.timeEndsIn) + " " + millisUntilFinished / 1000);//the title change to the time remaining
+                }
 
                 for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel)
                 {

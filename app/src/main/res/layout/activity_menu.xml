@@ -10,19 +10,12 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="150dp"
             android:layout_margin="19dp"
             android:id="@+id/logo"
             android:src="@drawable/speedytouchlogo"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/choose_your_game"
-        android:textColor="@color/White"
-        android:textSize="30sp"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_gravity="center"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
