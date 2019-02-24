@@ -62,19 +62,5 @@
             android:textStyle="bold"
             android:textColor="@color/White"
             android:background="@drawable/btns_shape" />
-        <!--<Button
-            android:id="@+id/random_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="EMPTY"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/White"
-            android:background="@drawable/btns_shape" />-->
-
     </RelativeLayout>
 </LinearLayout>
