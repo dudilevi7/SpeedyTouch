@@ -46,7 +46,7 @@ public class GuideActivity extends AppIntro2 {
         sliderPage2.setTitle(getResources().getString(R.string.title_2_guide));
         sliderPage2.setDescription(getResources().getString(R.string.description_2_guide));
         sliderPage2.setImageDrawable(R.drawable.greenemoji);
-        sliderPage2.setBgColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
+        sliderPage2.setBgColor(ContextCompat.getColor(getApplicationContext(),R.color.slideGreen));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         SliderPage sliderPage3 = new SliderPage();
