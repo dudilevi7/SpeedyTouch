@@ -92,9 +92,17 @@ public class MenuActivity extends Activity {
         guideBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this,GuideActivity.class);
-                startActivity(intent);
-                finish();
+                ObjectAnimator animator = ObjectAnimator.ofFloat(guideBtn,"rotation", 360).setDuration(750);
+                animator.start();
+                animator.addListener(new AnimatorListenerAdapter() {
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        Intent intent = new Intent(MenuActivity.this,GuideActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
         });
     }

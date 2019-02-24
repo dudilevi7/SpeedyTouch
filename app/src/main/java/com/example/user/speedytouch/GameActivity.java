@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -57,7 +56,6 @@ public class GameActivity extends Activity {
         wrongAnswerMp = MediaPlayer.create(this,R.raw.wah_wah_wah_fail_sound_effect);
         correctAnswerMp = MediaPlayer.create(this,R.raw.correct_answer_sound_effect);
         finishedLevelMp = MediaPlayer.create(this,R.raw.finishedlevel);
-
         viewKonfetti = findViewById(R.id.viewKonfetti);
 
 
@@ -99,10 +97,8 @@ public class GameActivity extends Activity {
         countDownTimer = new CountDownTimer(GameMode.getInstance().getMillisByLevel(),1000) { //7 seconds for each screen in level 1
             @Override
             public void onTick(long millisUntilFinished) {
-
-                if (millisUntilFinished<GameMode.getInstance().getMillisByLevel()-1000) {
-                    catchItTv.setText(getString(R.string.timeEndsIn) + " " + millisUntilFinished / 1000);//the title change to the time remaining
-                }
+                if (millisUntilFinished<GameMode.getInstance().getMillisByLevel()-1000)
+                    catchItTv.setText(getString(R.string.timeEndsIn)+" "+millisUntilFinished/1000); //the title change to the time remaining
 
                 for (final TextView numbersDisplayOnScreenTv : listNumbersOfTheLevel)
                 {
@@ -135,6 +131,9 @@ public class GameActivity extends Activity {
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Intent intent = new Intent(GameActivity.this,PreGameActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
                                             finish();
                                         }
                                     },2500); //back the pre activity for find new number
@@ -164,7 +163,7 @@ public class GameActivity extends Activity {
 
                             User.getInstance().addToScore(GameMode.getInstance().getM_level());//score++ and set it in the User Class
                             SingletonNumbers1.getInstance().getList().remove(winningNumberTv.getText());
-                            if ((User.getInstance().getmScore() == 10)) { //finished in success
+                            if ((User.getInstance().getmScore() == 10*whatIsTheLevel)) { //finished in success
                                 correctAnswerMp.stop();
                                 finishedLevelMp.start();
                                 viewKonfetti.build()
@@ -185,6 +184,9 @@ public class GameActivity extends Activity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Intent intent = new Intent(GameActivity.this,PreGameActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                         finish();
                                     }
                                 },1500); //back the pre activity for find new number
@@ -220,6 +222,9 @@ public class GameActivity extends Activity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            Intent intent = new Intent(GameActivity.this,PreGameActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             finish();
                         }
                     },2500); //when falseCount<3 -> back to pre activity for find new number
@@ -250,14 +255,6 @@ public class GameActivity extends Activity {
 
         thisDialog.setTitle(R.string.save_username);
         thisDialog.show();
-        thisDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                User.getInstance().resetUser();
-                Intent intent = new Intent(GameActivity.this,MenuActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void initNumbersDisplayOnScreen(int k) {

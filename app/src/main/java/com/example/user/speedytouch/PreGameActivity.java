@@ -19,7 +19,7 @@ public class PreGameActivity extends Activity {
     private ImageView imageView;
     private TextView numberView;
     private Button startBtn ;
-    private SingletonNumbers1 NumbersGameManager = SingletonNumbers1.getInstance();
+    private SingletonNumbers1 numbersGameManager = SingletonNumbers1.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,13 @@ public class PreGameActivity extends Activity {
 
 
         Random rand = new Random();
-        if(NumbersGameManager.getList().size()==0){ //Level has been finished !
+        if(numbersGameManager.getList().size()==0){ //Level has been finished !
             Toast.makeText(getApplicationContext(),"The level is done!",Toast.LENGTH_SHORT).show();
         }
         else {
-            theNumberIndex = NumbersGameManager.getNewNumberToPlay();
-            theChoosenNumber = NumbersGameManager.getList().get(theNumberIndex); //getting the image address
-            numberView.setText(""+theChoosenNumber); //setting the image
+            theNumberIndex = numbersGameManager.getNewNumberToPlay();
+            theChoosenNumber = numbersGameManager.getList().get(theNumberIndex); //getting the number address
+            numberView.setText(""+theChoosenNumber); //setting the number
             numberView.setGravity(Gravity.CENTER);
         }
         startBtn.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +49,7 @@ public class PreGameActivity extends Activity {
                 Intent intent = new Intent(PreGameActivity.this,GameActivity.class);
                 intent.putExtra("number",theChoosenNumber);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -57,6 +58,7 @@ public class PreGameActivity extends Activity {
     @Override
     public void onBackPressed() {
         User.getInstance().resetUser();
+        numbersGameManager.resetSingletonList();
         Intent intent = new Intent(PreGameActivity.this,MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -66,6 +68,6 @@ public class PreGameActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        onCreate(Bundle.EMPTY);
+        //onCreate(Bundle.EMPTY);
     }
 }

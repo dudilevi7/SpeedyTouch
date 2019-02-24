@@ -66,4 +66,7 @@ public class SingletonNumbers1 {
         for(int i=0; i < length; i++) // where x is the size of the list containing your alphabet.
             list.add(i);
     }
+    public void resetSingletonList(){
+        instance = null;
+    }
 }
