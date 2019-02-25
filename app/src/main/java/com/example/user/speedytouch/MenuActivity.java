@@ -29,6 +29,12 @@ public class MenuActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
@@ -83,7 +89,6 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,RecordsActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     }
@@ -100,12 +105,12 @@ public class MenuActivity extends Activity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MenuActivity.this,GuideActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     }
                 });
             }
         });
+
     }
 }
