@@ -47,6 +47,7 @@ public class PreGameActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PreGameActivity.this,GameActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("number",theChoosenNumber);
                 startActivity(intent);
                 finish();

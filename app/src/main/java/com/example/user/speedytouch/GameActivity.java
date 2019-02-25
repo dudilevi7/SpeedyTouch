@@ -261,6 +261,7 @@ public class GameActivity extends Activity {
             public void onCancel(DialogInterface dialog) {
                 User.getInstance().resetUser();
                 Intent intent = new Intent(GameActivity.this,MenuActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
