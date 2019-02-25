@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -255,6 +256,14 @@ public class GameActivity extends Activity {
 
         thisDialog.setTitle(R.string.save_username);
         thisDialog.show();
+        thisDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                User.getInstance().resetUser();
+                Intent intent = new Intent(GameActivity.this,MenuActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initNumbersDisplayOnScreen(int k) {

@@ -42,7 +42,7 @@ public class MenuActivity extends Activity {
         logoApp.animate().translationY(50).setDuration(1000);
         leadboardBtn.animate().translationY(300).setDuration(1000);
         guideBtn.animate().translationY(600).setDuration(1000);
-
+        SingletonNumbers1.getInstance().resetSingletonList();
 
         numBtn.setOnClickListener(new View.OnClickListener() {
             @Override
